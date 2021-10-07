@@ -1,6 +1,7 @@
 """
 This file holds the tests for endpoints.py.
 """
+
 from unittest import TestCase, skip
 from flask_restx import Resource, Api
 
@@ -18,3 +19,4 @@ class EndpointTestCase(TestCase):
        hello = ep.HelloWorld(Resource)
        ret = hello.get()
        self.assertIsInstance(ret, dict)
+       self.assertIn(ep.HELLO, ret)
