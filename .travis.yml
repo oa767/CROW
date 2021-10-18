@@ -1,0 +1,18 @@
+language: python
+python:
+    - '3.8'
+
+install:
+    - pip install -r requirements-dev.txt
+
+env:
+    - PYTHONPATH=/home/travis/build/oa767/Demo-Repo
+
+script:
+    - make tests
+
+#after_success:
+#    - ./deploy.sh
+#
+#notifications:
+#  slack: devopsnyu:vAFcJBgAP2f73SqhWgb40Gjf
