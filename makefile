@@ -14,14 +14,14 @@ github: FORCE
 tests: lint unit
 
 unit: FORCE
-	cd $(API_DIR); nosetests3 --with-coverage --cover-package=$(API_DIR)
+	cd $(API_DIR); nosetests --with-coverage --cover-package=$(API_DIR)
 
 lint: FORCE
 	$(LINTER) $(API_DIR)/*.py
 	$(LINTER) $(DB_DIR)/*.py
 
 dev_env: FORCE
-	pip install -r $(REQ_DIR)/requirements-dev.txt
+	pip install -r requirements-dev.txt
 
 docs: FORCE
 	cd $(API_DIR); make docs
