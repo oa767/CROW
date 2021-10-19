@@ -8,6 +8,7 @@ FORCE:
 prod: tests github
 
 github: FORCE
+	git add -A
 	- git commit -a
 	git push origin master
 
