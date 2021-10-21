@@ -11,6 +11,11 @@ env:
 script:
     - make tests
 
+deploy:
+    - provider: heroku
+      api_key: $HEROKU_API_KEY
+      app: demorepo249
+
 #after_success:
 #    - ./deploy.sh
 #
