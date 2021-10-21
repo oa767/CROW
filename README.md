@@ -1,10 +1,13 @@
+
 # Chatbot server
 
 ## Requirements
 
+- Create a user
 - Allow user to enter chat room
 - Greet the user
 - Keep track of users
+- List chat rooms
 - Answer user questions
 - Recognize user has left
 

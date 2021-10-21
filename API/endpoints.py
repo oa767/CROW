@@ -52,3 +52,16 @@ class CreateUser(Resource):
         This method adds a new user.
         """
         return username
+
+
+@api.route('/list_rooms')
+class ListRoom(Resource):
+    """
+    This endpoint returns a list of all rooms.
+    """
+    def get(self):
+        """
+        Returns a list of all chat rooms.
+        """
+        return {"Software Engineering": {"num_users": 17},
+                "AI": {"num_users": 27}, }
