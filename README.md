@@ -1,21 +1,23 @@
 
-# Chatbot server
+# Anonymous Chat Room
+#Omar AbouelNour, Chino Guerrero, Randy Genere
 
-## Requirements
+##MAIN FUNCTION:
 
-- Create a user
-- Allow user to enter chat room
-- Greet the user
-- Keep track of users
-- List chat rooms
-- Answer user questions
-- Recognize user has left
+An anonymous chat room that deletes its history with a group of X people
+(ideally 10 people)
 
-## Design
+##MAIN FEATURES:
 
-- Use flask_restx to build an API server
-- Multiple clients possible -- TBD
-- Handle each major requirement with an API endpoint
-- Use Test-Driven-Development (TDD) to make sure we have testing.
-- Use Swagger for initial interaction with server.
-- Use Swagger, pydoc and good docstrings for documentation.
+A website type application that can generate a chat room
+Requires a code to enter a new chatroom
+Limited Slots (ideally 10 people)
+Deletes after use (20 minutes after last message)
+
+##POSSIBLE FEATURES:
+
+File Sharing
+Video Calls
+GIFs
+Screen Sharing
+Whiteboard Mode
