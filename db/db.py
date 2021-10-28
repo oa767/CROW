@@ -5,8 +5,11 @@ Gradually, we will fill in actual calls to our datastore.
 """
 
 import json
+import os
 
-ROOMS_DB = "../db/rooms.json"
+APP_HOME = os.environ["APP_HOME"]
+
+ROOMS_DB = f"{APP_HOME}/db/rooms.json"
 
 
 def get_rooms():
