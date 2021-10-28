@@ -3,15 +3,16 @@ This is the file containing all of the endpoints for our flask app.
 The endpoint called `endpoints` will return all available endpoints.
 """
 
+from http import HTTPStatus
 from flask import Flask
 from flask_restx import Resource, Api
-# import db.db as db
+import db.db as db
 
 app = Flask(__name__)
 api = Api(app)
 
 HELLO = 'Hello'
-WORLD = 'world'
+WORLD = 'World'
 
 
 @api.route('/hello')
@@ -26,6 +27,22 @@ class HelloWorld(Resource):
         It just answers with "hello world."
         """
         return {HELLO: WORLD}
+
+
+@api.route('/list_rooms')
+class ListRooms(Resource):
+    """
+    This endpoint returns a list of all rooms.
+    """
+    def get(self):
+        """
+        Returns a list of all chat rooms.
+        """
+        rooms = db.get_rooms()
+        if rooms is None:
+            pass
+        else:
+            return rooms
 
 
 @api.route('/endpoints')
@@ -47,21 +64,9 @@ class CreateUser(Resource):
     """
     This class supports adding a user to the chat room.
     """
+    @api.response(HTTPStatus.OK, 'Success')
     def post(self, username):
         """
-        This method adds a new user.
+        This method adds a user to the chatroom.
         """
         return username
-
-
-@api.route('/list_rooms')
-class ListRoom(Resource):
-    """
-    This endpoint returns a list of all rooms.
-    """
-    def get(self):
-        """
-        Returns a list of all chat rooms.
-        """
-        return {"Software Engineering": {"num_users": 17},
-                "AI": {"num_users": 27}, }
