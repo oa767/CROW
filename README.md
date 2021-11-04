@@ -34,12 +34,13 @@ Users can host a brand new private chat room for people who know the code for th
 
 ## Design:
 
-Codes for room are displayed on the top of the screen/website.
+
 Option bars on the left hand side of the screen to host private chat rooms and view users in current room.
-A button to 'create a private chat room' will be on the top left.
+A button to 'create a private chat room' endpoint will be on the top left.
 A list of current users in the chat will be on the left hand side under the 'create a private chat' button.
+Codes for room are displayed on the top of the screen/website.
 Chat interface in the center of screen.
-Rooms have names after their codes.
+Rooms have names based on their codes.
 User names will be handmade and randomly distributed.
 The same set of unique names will be used for each room.
 
