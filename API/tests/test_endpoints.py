@@ -6,7 +6,9 @@ from unittest import TestCase, skip
 from flask_restx import Resource, Api
 
 import API.endpoints as ep
+import db.db as db
 
+NEW_ROOM = "New room"
 
 class EndpointTestCase(TestCase):
     def setUp(self):
@@ -21,6 +23,16 @@ class EndpointTestCase(TestCase):
         self.assertIsInstance(ret, dict)
         self.assertIn(ep.HELLO, ret)
 
+    def test_create_room(self):
+        """
+        Post-condition 1: return is a dictionary.
+        """
+        cr = ep.CreateRoom(Resource)
+        ret = cr.post(NEW_ROOM)
+        lr = ep.ListRooms(Resource)
+        rooms = db.get_rooms()
+        self.assertIn(NEW_ROOM, rooms)
+        
     def test_list_rooms1(self):
         """
         Post-condition 1: return is a dictionary.
