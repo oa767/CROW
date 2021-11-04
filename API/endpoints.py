@@ -65,8 +65,8 @@ class CreateRoom(Resource):
             raise (wz.NotFound("Chat room db not found."))
         elif ret == db.DUPLICATE:
             raise (wz.NotAcceptable("Chat room name already exists."))
-            
-            
+
+
 @api.route('/endpoints')
 class Endpoints(Resource):
     """
