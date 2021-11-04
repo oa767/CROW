@@ -7,9 +7,9 @@ Gradually, we will fill in actual calls to our datastore.
 import json
 import os
 
-DEMO_HOME = os.environ["DEMO_HOME"]
+DEMO_HOME = os.environ["APP_HOME"]
 
-ROOMS_DB = f"{DEMO_HOME}/db/rooms.json"
+ROOMS_DB = f"{APP_HOME}/db/rooms.json"
 
 OK = 0
 NOT_FOUND = 1
