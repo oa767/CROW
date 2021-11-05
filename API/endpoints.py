@@ -77,7 +77,7 @@ class JoinRoom(Resource):
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
     def post(self, username):
         """
-        This method adds the user to a chat room.
+        This method adds the user to a random chat room.
         """
         ret = db.join_user(username)
         if ret == db.NOT_FOUND:
@@ -108,6 +108,6 @@ class CreateUser(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     def post(self, username):
         """
-        This method adds a user to the chatroom.
+        This method adds a user to the users database.
         """
         return username
