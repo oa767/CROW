@@ -49,7 +49,8 @@ def add_room(roomname):
         rooms[roomname] = {"num_users": 0, "users": []}
         write_rooms(rooms)
         return OK
-        
+
+
 def join_user(username):
     """
     Adds a user to a chat room.
