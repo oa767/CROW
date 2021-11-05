@@ -49,7 +49,7 @@ class EndpointTestCase(TestCase):
         for room in list_of_rooms:
             if "test_username" in room["users"]:
                 found = True
-        self.assert(found == True)
+        self.assertTrue(found)
             
     def test_list_rooms1(self):
         """
