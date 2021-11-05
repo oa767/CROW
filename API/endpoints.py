@@ -75,7 +75,6 @@ class JoinRoom(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-
     def post(self, username):
         """
         This method adds the user to a chat room.
