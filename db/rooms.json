@@ -1,4 +1,27 @@
 {
-    "Software Engineering": {"num_users": 17, "users": []},
-    "AI": {"num_users": 27, "users": []}
+    "Software Engineering": {
+        "num_users": 17,
+        "users": [
+            "test_username",
+            "test_username"
+        ]
+    },
+    "AI": {
+        "num_users": 27,
+        "users": [
+            "test_username"
+        ]
+    },
+    "new room974257632170": {
+        "num_users": 0,
+        "users": []
+    },
+    "new room3277791525893": {
+        "num_users": 0,
+        "users": []
+    },
+    "new room8387079263593": {
+        "num_users": 0,
+        "users": []
+    }
 }
