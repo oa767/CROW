@@ -62,4 +62,4 @@ def join_user(username):
         random_room = random.choice(list(rooms))
         rooms[random_room]["users"].append(username)
         write_rooms(rooms)
-        return OK
+        return random_room

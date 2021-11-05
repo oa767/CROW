@@ -82,6 +82,8 @@ class JoinRoom(Resource):
         ret = db.join_user(username)
         if ret == db.NOT_FOUND:
             raise (wz.NotFound("No chat rooms available."))
+        else:
+            return ret
 
 
 @api.route('/endpoints')
