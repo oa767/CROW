@@ -47,7 +47,7 @@ class EndpointTestCase(TestCase):
         list_of_rooms = lr.get()
         found = False
         for room in list_of_rooms:
-            if "test_username" in room["users"]:
+            if "test_username" in list_of_rooms[room]["users"]:
                 found = True
         self.assertTrue(found)
             
