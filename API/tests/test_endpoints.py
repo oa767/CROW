@@ -37,6 +37,20 @@ class EndpointTestCase(TestCase):
         rooms = db.get_rooms()
         self.assertIn(new_room, rooms)
         
+    def test_join_room(self):
+        """
+        Post-condition 1: return is a dictionary.
+        """
+        jr = ep.JoinRoom(Resource)
+        ret = jr.post("test_username")
+        lr = ep.ListRooms(Resource)
+        list_of_rooms = lr.get()
+        found = False
+        for room in list_of_rooms:
+            if "test_username" in room["users"]:
+                found = True
+        self.assert(found == True)
+            
     def test_list_rooms1(self):
         """
         Post-condition 1: return is a dictionary.

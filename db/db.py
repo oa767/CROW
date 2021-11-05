@@ -6,6 +6,7 @@ Gradually, we will fill in actual calls to our datastore.
 
 import json
 import os
+import random
 
 APP_HOME = os.environ["APP_HOME"]
 
@@ -45,6 +46,19 @@ def add_room(roomname):
     elif roomname in rooms:
         return DUPLICATE
     else:
-        rooms[roomname] = {"num_users": 0}
+        rooms[roomname] = {"num_users": 0, "users": []}
+        write_rooms(rooms)
+        return OK
+        
+def join_user(username):
+    """
+    Adds a user to a chat room.
+    """
+    rooms = get_rooms()
+    if rooms is None:
+        return NOT_FOUND
+    else:
+        random_room = random.choice(list(rooms))
+        rooms[random_room]["users"].append(username)
         write_rooms(rooms)
         return OK

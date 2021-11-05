@@ -67,6 +67,24 @@ class CreateRoom(Resource):
             raise (wz.NotAcceptable("Chat room name already exists."))
 
 
+@api.route('/join_room')
+class JoinRoom(Resource):
+    """
+    This class supports joining a random chat room.
+    """
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+
+    def post(self, username):
+        """
+        This method adds the user to a chat room.
+        """
+        ret = db.join_user(username)
+        if ret == db.NOT_FOUND:
+            raise (wz.NotFound("No chat rooms available."))
+
+
 @api.route('/endpoints')
 class Endpoints(Resource):
     """

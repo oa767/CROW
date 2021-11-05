@@ -1,4 +1,4 @@
 {
-    "Software Engineering": {"num_users": 17},
-    "AI": {"num_users": 27, "descr": "Discuss AI"}
+    "Software Engineering": {"num_users": 17, "users": []},
+    "AI": {"num_users": 27, "users": []}
 }
