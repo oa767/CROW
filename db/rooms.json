@@ -23,5 +23,11 @@
     "new room8387079263593": {
         "num_users": 0,
         "users": []
+    },
+    "new room2566840971565": {
+        "num_users": 0,
+        "users": [
+            "test_username"
+        ]
     }
 }
