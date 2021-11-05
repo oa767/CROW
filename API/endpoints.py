@@ -67,7 +67,7 @@ class CreateRoom(Resource):
             raise (wz.NotAcceptable("Chat room name already exists."))
 
 
-@api.route('/join_room')
+@api.route('/join_room/<username>')
 class JoinRoom(Resource):
     """
     This class supports joining a random chat room.
