@@ -9,7 +9,7 @@ env:
     - PYTHONPATH=/home/travis/build/oa767/CROW
 
 script:
-    - make tests
+    - make all_tests
 
 deploy:
     - provider: heroku
