@@ -1,12 +1,14 @@
 {
     "Software Engineering": {
         "num_users": 17,
-		"users": []
+	"users": []
     },
     "AI": {
-        "num_users": 27
+        "num_users": 27,
+        "users": []
     },
     "New room": {
-        "num_users": 0
+        "num_users": 0,
+        "users": []
     }
 }
