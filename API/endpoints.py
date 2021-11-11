@@ -55,7 +55,7 @@ class CreateRoom(Resource):
     """
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key has been found')
     def post(self, roomname):
         """
         This method adds a room to the room db.
@@ -74,7 +74,7 @@ class JoinRoom(Resource):
     """
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key has been found')
     def post(self, username):
         """
         This method adds the user to a random chat room.
@@ -106,8 +106,15 @@ class CreateUser(Resource):
     This class supports adding a user to the chat room.
     """
     @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key has been found')
     def post(self, username):
         """
         This method adds a user to the users database.
         """
-        return username
+        ret = db.add_user(username)
+        if ret == db.NOT_FOUND:
+            raise (wz.NotFound("User db not found."))
+        elif ret == db.DUPLICATE:
+            raise (wz.NotAcceptable("The username provided already exists."))
+        return f"{username} added."

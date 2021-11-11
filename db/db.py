@@ -12,11 +12,12 @@ APP_HOME = os.environ["APP_HOME"]
 TEST_MODE = os.environ.get("TEST_MODE", 0)
 DB_DIR = f"{APP_HOME}/db"
 
-ROOMS_DB = f"{APP_HOME}/db/rooms.json"
 if TEST_MODE:
-    ROOMS_DB = f"{DB_DIR}/test_rooms.json"
+    DB_DIR = f"{APP_HOME}/db/test_dbs"
 else:
-    ROOMS_DB = f"{DB_DIR}/rooms.json"
+    DB_DIR = f"{APP_HOME}/db"
+
+ROOMS_DB = f"{APP_HOME}/db/rooms.json"
 
 OK = 0
 NOT_FOUND = 1
@@ -60,6 +61,29 @@ def add_room(roomname):
         return OK
 
 
+def get_users():
+    return {"John": {}}
+    
+    
+def write_users():
+    pass
+    
+   
+def add_user(username):
+    """
+    This function adds a new user to the user db.
+    """
+    users = get_users()
+    if users is None:
+        return NOT_FOUND
+    elif username in users:
+        return DUPLICATE
+    else:
+        users[username] = {"num_users": 0}
+        write_users(users)
+        return OK
+        
+        
 def join_user(username):
     """
     Adds a user to a chat room.
