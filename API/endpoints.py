@@ -7,7 +7,7 @@ from http import HTTPStatus
 from flask import Flask
 from flask_restx import Resource, Api
 import werkzeug.exceptions as wz
-import db.db as db
+import db.data as db
 
 app = Flask(__name__)
 api = Api(app)
@@ -22,6 +22,7 @@ class HelloWorld(Resource):
     The purpose of the HelloWorld class is to have a simple test to see if the
     app is working at all.
     """
+    @api.response(HTTPStatus.OK, 'Success')
     def get(self):
         """
         A trivial endpoint to see if the server is running.

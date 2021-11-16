@@ -7,13 +7,14 @@ from flask_restx import Resource, Api
 import random             
 
 import API.endpoints as ep
-import db.db as db
+import db.data as db
 
 HUGE_NUM = 10000000000000
 
-def new_room_name():
+def new_entity_name(entity_name):
     int_name = random.randint(0, HUGE_NUM)
-    return "new room" + str(int_name)
+    return "new {entity_name}" + str(int_name)
+    
 class EndpointTestCase(TestCase):
     def setUp(self):
         pass
@@ -27,12 +28,25 @@ class EndpointTestCase(TestCase):
         self.assertIsInstance(ret, dict)
         self.assertIn(ep.HELLO, ret)
 
+    @skip("WORK IN PROGRESS!")
+    def test_create_user(self):
+        """
+        Checks to see if we can successfully create a new user.
+        Post-condition 1: user is in DB.
+        """
+        cu = ep.CreateUser(Resource)
+        new_user = new_entity_name("user")
+        ret = cu.post(new_user)
+        users = db.get_users()
+        self.assertIn(new_user, users)
+        
     def test_create_room(self):
         """
-        Post-condition 1: return is a dictionary.
+        Checks to see if we can successfully create a new room.
+        Post-condition 1: room is in DB.
         """
         cr = ep.CreateRoom(Resource)
-        new_room = new_room_name()
+        new_room = new_entity_name("room")
         ret = cr.post(new_room)
         rooms = db.get_rooms()
         self.assertIn(new_room, rooms)
