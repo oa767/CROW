@@ -76,7 +76,7 @@ def add_room(roomname):
         return OK
 
 
-def write_users():
+def write_users(test):
     pass
 
 
