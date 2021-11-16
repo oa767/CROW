@@ -17,44 +17,46 @@ if TEST_MODE:
 else:
     DB_DIR = f"{APP_HOME}/db"
 
-ROOMS_DB = f"{APP_HOME}/db/rooms.json"
-USERS_DB = f"{APP_HOME}/db/users.json"
+ROOM_COLLECTION = f"{APP_HOME}/db/rooms.json"
+USER_COLLECTION = f"{APP_HOME}/db/users.json"
 
 OK = 0
 NOT_FOUND = 1
 DUPLICATE = 2
 
 
-def get_users():
+def write_collection(perm_version, mem_version):
     """
-    A function to return a dictionary of all users.
+    Write out the in-memory data collection in proper DB format.
+    """
+    with open(perm_version, 'w') as f:
+        json.dump(mem_version, f, indent=4)
+
+
+def read_collection(perm_version):
+    """
+    A function to read a collection off of disk.
     """
     try:
-        with open(USERS_DB) as file:
+        with open(perm_version) as file:
             return json.loads(file.read())
     except FileNotFoundError:
-        print("Users db not found.")
+        print("f"{perm_version} not found.")
         return None
-
-
-def write_rooms(rooms):
-    """
-    Write out the in-memory room list in proper DB format.
-    """
-    with open(ROOMS_DB, 'w') as f:
-        json.dump(rooms, f, indent=4)
 
 
 def get_rooms():
     """
-    A function to return all chat rooms.
+    A function to return a dictionary of all rooms.
     """
-    try:
-        with open(ROOMS_DB) as file:
-            return json.loads(file.read())
-    except FileNotFoundError:
-        print("Rooms db not found.")
-        return None
+    return read_collection(ROOM_COLLECTION)
+
+
+def get_users():
+    """
+    A function to return a dictionary of all users.
+    """
+    return read_collection(USER_COLLECTION)
 
 
 def add_room(roomname):
@@ -70,7 +72,7 @@ def add_room(roomname):
         return DUPLICATE
     else:
         rooms[roomname] = {"num_users": 0, "users": []}
-        write_rooms(rooms)
+        write_collection(ROOM_COLLECTION, rooms)
         return OK
 
 
@@ -88,8 +90,8 @@ def add_user(username):
     elif username in users:
         return DUPLICATE
     else:
-        users[username] = {"num_users": 0}
-        write_users(users)
+        users[username] = {}
+        write_collection(USER_COLLECTION, users)
         return OK
 
 
