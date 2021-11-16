@@ -92,7 +92,7 @@ def add_user(username):
         write_users(users)
         return OK
 
-     
+
 def join_user(username):
     """
     Adds a user to a chat room.
