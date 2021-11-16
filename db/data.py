@@ -24,6 +24,7 @@ OK = 0
 NOT_FOUND = 1
 DUPLICATE = 2
 
+
 def get_users():
     """
     A function to return a dictionary of all users.
@@ -75,8 +76,8 @@ def add_room(roomname):
 
 def write_users():
     pass
-    
-   
+
+
 def add_user(username):
     """
     This function adds a new user to the user db.
@@ -90,8 +91,8 @@ def add_user(username):
         users[username] = {"num_users": 0}
         write_users(users)
         return OK
-        
-        
+
+     
 def join_user(username):
     """
     Adds a user to a chat room.
