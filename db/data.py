@@ -79,6 +79,9 @@ def add_room(roomname):
 def write_users(test):
     pass
 
+def write_rooms(test):
+    pass
+
 
 def add_user(username):
     """
