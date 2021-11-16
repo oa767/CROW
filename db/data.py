@@ -41,7 +41,7 @@ def read_collection(perm_version):
         with open(perm_version) as file:
             return json.loads(file.read())
     except FileNotFoundError:
-        print("f"{perm_version} not found.")
+        print(f"{perm_version} not found.")
         return None
 
 
