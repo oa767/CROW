@@ -1,13 +1,35 @@
 {
     "Software Engineering": {
         "num_users": 17,
-	"users": []
+        "users": []
     },
     "AI": {
         "num_users": 27,
         "users": []
     },
     "New room": {
+        "num_users": 1,
+        "users": [
+            "test_username"
+        ]
+    },
+    "new {entity_name}5750440402552": {
+        "num_users": 0,
+        "users": []
+    },
+    "new {entity_name}6107950007759": {
+        "num_users": 0,
+        "users": []
+    },
+    "new {entity_name}5017300686613": {
+        "num_users": 0,
+        "users": []
+    },
+    "new {entity_name}3968247956632": {
+        "num_users": 0,
+        "users": []
+    },
+    "new {entity_name}4334215076100": {
         "num_users": 0,
         "users": []
     }
