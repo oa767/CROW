@@ -13,6 +13,7 @@ It assumes that cause that's what we've been using!
 """
 import sys
 import json
+
 import pymongo as pm
 
 
@@ -34,6 +35,7 @@ def new_ent_from_json(key_name, ent_name, ent_data):
 
 
 client = pm.MongoClient("mongodb+srv://oabouelnour:<cBhCCuTa3adSBKxc>@cluster0.52jag.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", server_api=ServerApi('1'))
+print(client)
 
 if len(sys.argv) < 4:
     # the key in the JSON file will become an ordinary field
@@ -43,7 +45,6 @@ if len(sys.argv) < 4:
 
 db = client[sys.argv[1]]
 print(db)
-db = "chatDB"
 
 collect_nm = sys.argv[2]
 print(f"{collect_nm=}")
@@ -65,4 +66,3 @@ for entity_nm in collect:
     collection.insert_one(new_entity)
 
 print(collection)
-print("\n\nSUCCESS!!!\n\n")
