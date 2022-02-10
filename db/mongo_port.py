@@ -41,22 +41,19 @@ if len(sys.argv) < 4:
     print(f"Usage: {sys.argv[0]} db_name collection_name key_name")
     exit(1)
 
-#db = client[sys.argv[1]]
-#print(db)
+db = client[sys.argv[1]]
+print(db)
 db = "chatDB"
 
-#collect_nm = sys.argv[2]
-#print(f"{collect_nm=}")
-#collection = db[collect_nm]
-collection = db["rooms"]
+collect_nm = sys.argv[2]
+print(f"{collect_nm=}")
+collection = db[collect_nm]
 
-#json_file = collect_nm + ".json"
-json_file = "rooms.json"
-#print(f"{json_file=}")
+json_file = collect_nm + ".json"
+print(f"{json_file=}")
 
-#key_name = sys.argv[3]
-#print(f"{key_name=}")
-key_name = "num_users"
+key_name = sys.argv[3]
+print(f"{key_name=}")
 
 collect = read_collection(json_file)
 
