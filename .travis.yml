@@ -15,6 +15,7 @@ deploy:
     - provider: heroku
       api_key: $HEROKU_API_KEY
       app: crow249
+      edge: true
 
 #after_success:
 #    - ./deploy.sh
