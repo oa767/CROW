@@ -1,5 +1,5 @@
 flask
 flask-restx
 gunicorn
-pymongo
+pymongo[srv]
 bson
