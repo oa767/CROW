@@ -34,7 +34,7 @@ def new_ent_from_json(key_name, ent_name, ent_data):
     return {**dict1, **ent_data}
 
 
-client = pm.MongoClient("mongodb+srv://oabouelnour:<cBhCCuTa3adSBKxc>@cluster0.52jag.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", server_api=ServerApi('1'))
+client = pm.MongoClient("mongodb+srv://oabouelnour:<cBhCCuTa3adSBKxc>@cluster0.52jag.mongodb.net/chatDB?retryWrites=true&w=majority", server_api=ServerApi('1'))
 print(client)
 
 if len(sys.argv) < 4:
