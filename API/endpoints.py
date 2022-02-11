@@ -86,7 +86,7 @@ class CreateRoom(Resource):
             raise (wz.NotAcceptable("Chat room name already exists."))
         else:
             return f"{roomname} added."
-            
+
 
 @api.route('/rooms/delete/<roomname>')
 class DeleteRoom(Resource):

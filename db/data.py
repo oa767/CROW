@@ -4,21 +4,12 @@ At first, it will just contain stubs that return fake data.
 Gradually, we will fill in actual calls to our datastore.
 """
 
-import json
 import os
 import random
-import pymongo as pm
-from pymongo.server_api import ServerApi
-import bson.json_util as bsutil
+import db.db_connect as dbc
 
 APP_HOME = os.environ["APP_HOME"]
-TEST_MODE = os.environ.get("TEST_MODE", 0)
-DB_DIR = f"{APP_HOME}/db"
-
-if TEST_MODE:
-    DB_DIR = "chatDB"
-else:
-    DB_DIR = "chatDB"
+DB_DIR = "chatDB"
 
 #field names in our DB:
 ROOMS = "rooms"
@@ -32,31 +23,15 @@ OK = 0
 NOT_FOUND = 1
 DUPLICATE = 2
 
-client = pm.MongoClient("mongodb+srv://oabouelnour:<cBhCCuTa3adSBKxc>@cluster0.52jag.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", server_api=ServerApi('1'))
+client = dbc.get_client()
 print(client)
 
-
-def fetch_all(collect_nm, key_nm):
-    all_docs = {}
-    for doc in client[DB_NAME][collect_nm].find():
-        print(doc)
-        all_docs[doc[key_nm]] = json.loads(bsutil.dumps(doc))
-    return all_docs
-    
-
-def insert_doc(collect_nm, doc):
-    client[DB_NAME][collect_nm].insert_one(doc)
-    
-
-def update_doc(collect_nm, doc):
-    client[DB_NAME][collect_nm].update
-    
 
 def get_rooms():
     """
     A function to return a dictionary of all rooms.
     """
-    return fetch_all(ROOMS, ROOM_NM)
+    return dbc.fetch_all(ROOMS, ROOM_NM)
 
 
 def room_exists(roomname):
@@ -75,7 +50,7 @@ def add_room(roomname):
         return DUPLICATE
     else:
         rooms[roomname] = {"num_users": 0, "users": []}
-        insert_doc(ROOMS, {ROOM_NM: roomname, NUM_USERS: 0})
+        dbc.insert_doc(ROOMS, {ROOM_NM: roomname, NUM_USERS: 0})
         return OK
 
 
@@ -90,7 +65,7 @@ def get_users():
     """
     A function to return a dictionary of all users.
     """
-    return fetch_all(USERS, USER_NM)
+    return dbc.fetch_all(USERS, USER_NM)
 
 
 def write_users(test):
@@ -110,10 +85,11 @@ def add_user(username):
     elif username in users:
         return DUPLICATE
     else:
-        insert_doc(USERS, {USER_NM: username})
+        dbc.insert_doc(USERS, {USER_NM: username})
         return OK
 
 
+###NEEDS FIXING!!!!###
 def join_user(username):
     """
     Adds a user to a chat room.
