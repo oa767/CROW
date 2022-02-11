@@ -22,13 +22,11 @@ class DBTestCase(TestCase):
         Can we fetch user db?
         """
         users = db.get_users()
-        self.assertIsInstance(users, dict)
+        self.assertIsInstance(users, list)
 
-    def test_write_collection(self):
+    def test_get_rooms(self):
         """
-        Can we write the user db?
+        Can we fetch user db?
         """
-        fake_data = {FAKE_USER: {}}
-        db.write_collection(db.USER_COLLECTION, fake_data)
-        users = db.get_users()
-        self.assertIn(FAKE_USER, users)
+        rooms = db.get_rooms()
+        self.assertIsInstance(rooms, list)
