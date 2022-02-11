@@ -36,8 +36,7 @@ def get_client():
         print("Connecting to Mongo remotely.")
         client = pm.MongoClient(f"mongodb+srv://oabouelnour:{passwd}@"
                                 + f"{cloud_svc}/{db_nm}?"
-                                + db_params,
-                                server_api=ServerApi('1'))
+                                + db_params)
     return client
 
 
