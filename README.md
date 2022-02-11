@@ -7,6 +7,15 @@
 An anonymous chat room that deletes its history with a group of X people
 (ideally 10 people).
 
+The idea behind this website draws inspiration from Snapchats features. In Snapchat, users send images, messages, 
+and video to each other that eventually disappear if they are not saved by the receiver. In Snapchat, users are
+required to have unique accounts in order to use the application. This website does not need accounts in order
+to have access to all the features. Instead, users are given a unique username from a set of options. These
+usernames are NOT unique for each chatroom. Every chatroom uses the same set of usernames.
+
+Chatrooms are designed to automatically close after twenty minutes of idle period. When closed all chat messages
+will be deleted so that they are not retrievable.
+
 ## Main Features:
 
 A website type application that can generate a chat room.
