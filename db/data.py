@@ -18,6 +18,7 @@ USERS = "users"
 USER_NM = "userName"
 ROOM_NM = "roomName"
 NUM_USERS = "num_users"
+USERS_LIST = "list_users"
 
 OK = 0
 NOT_FOUND = 1
@@ -42,7 +43,7 @@ def get_rooms_as_dict():
 
 
 def room_exists(roomname):
-    rooms = get_rooms()
+    rooms = get_rooms_as_dict()
     return roomname in rooms
 
 
@@ -56,9 +57,7 @@ def add_room(roomname):
     elif roomname in rooms:
         return DUPLICATE
     else:
-        print("\ncreate_room\n", rooms, "\n\n")
-        #rooms[roomname] = {"num_users": 0, "users": []}
-        dbc.insert_doc(ROOMS, {ROOM_NM: roomname, NUM_USERS: 0})
+        dbc.insert_doc(ROOMS, {ROOM_NM: roomname, USERS_LIST: [], NUM_USERS: 0})
         return OK
 
 
@@ -97,18 +96,19 @@ def add_user(username):
         return OK
 
 
-###NEEDS FIXING!!!!###
 def join_user(username):
     """
     Adds a user to a chat room.
     """
-    rooms = get_rooms()
+    rooms = get_rooms_as_dict()
     if rooms is None:
         return NOT_FOUND
     else:
         print("\njoin_user\n", rooms, "\n\n")
-        random_room = random.choice(list(rooms))
-        #rooms[random_room]["users"].append(username)
-        #rooms[random_room]["num_users"] += 1
-        #write_rooms(rooms)
-        #return random_room
+        random_room, other = random.choice(list(rooms))
+        lst = rooms[random_room][USERS_LIST]
+        num = rooms[random_room][NUM_USERS]
+        lst.append(username)
+        num += 1
+        dbc.update_doc(ROOMS, {"_id" : random_room}, {$set : {USERS_LIST: users_list, NUM_USERS: num}})
+        return rooms[random_room][ROOM_NM]

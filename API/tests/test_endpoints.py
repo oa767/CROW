@@ -50,7 +50,8 @@ class EndpointTestCase(TestCase):
         ret = cr.post(new_room)
         #print(f'post {ret=}')
         rooms = db.get_rooms_as_dict()
-        #print(f'{rooms=}')
+        print("Create_Room:      ")
+        print(f'{rooms=}')
         self.assertIn(new_room, rooms)
         
     def test_join_room(self):
@@ -59,11 +60,10 @@ class EndpointTestCase(TestCase):
         """
         jr = ep.JoinRoom(Resource)
         ret = jr.post("test_username")
-        lr = ep.ListRooms(Resource)
-        list_of_rooms = lr.get()
+        rooms = db.get_rooms_as_dict()
         found = False
-        for room in list_of_rooms:
-            if "test_username" in list_of_rooms[room]["users"]:
+        for room in rooms:
+            if "test_username" in rooms[room]["list_users"]:
                 found = True
         self.assertTrue(found)
             
