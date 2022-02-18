@@ -64,7 +64,7 @@ def fetch_all(collect_nm, key_nm):
 def fetch_all_as_dict(collect_nm, key_nm):
     all_docs = []
     for doc in client[db_nm][collect_nm].find():
-        all_docs.append(json.loads(doc))
+        all_docs.append(doc)
     all_dict = {}
     for doc in all_docs:
         # print(f'{doc=}')
