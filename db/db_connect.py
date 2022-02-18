@@ -78,7 +78,7 @@ def insert_doc(collect_nm, doc):
     """
     client[db_nm][collect_nm].insert_one(doc)
 
-def update_doc(collect_nm, filters={}, update_string):
+def update_doc(collect_nm, filters = {}, update_string = {}):
     """
     Inserts doc into collection.
     """
