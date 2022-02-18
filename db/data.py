@@ -110,7 +110,8 @@ def join_user(username):
         print(f'{rooms[random_room]=}')
         lst = rooms[random_room][USERS_LIST]
         num = rooms[random_room][NUM_USERS]
+        object_id = rooms[random_room]["_id"]
         lst.append(username)
         num += 1
-        dbc.update_doc(ROOMS, {"_id" : random_room}, { "$set" : {USERS_LIST: lst, NUM_USERS: num}})
+        dbc.update_doc(ROOMS, {"_id" : object_id}, { "$set" : {USERS_LIST: lst, NUM_USERS: num}})
         return rooms[random_room][ROOM_NM]
