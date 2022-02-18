@@ -6,12 +6,12 @@ Gradually, we will fill in actual calls to our datastore.
 
 import os
 import random
-import db.db_connect as dbc
+import db.db_connect as db
 
 APP_HOME = os.environ["APP_HOME"]
 DB_DIR = "chatDB"
 
-#field names in our DB:
+# field names in our DB:
 ROOMS = "rooms"
 USERS = "users"
 
@@ -24,7 +24,7 @@ OK = 0
 NOT_FOUND = 1
 DUPLICATE = 2
 
-client = dbc.get_client()
+client = db.get_client()
 print(client)
 
 
@@ -32,14 +32,14 @@ def get_rooms():
     """
     A function to return a list of all rooms.
     """
-    return dbc.fetch_all(ROOMS, ROOM_NM)
-    
+    return db.fetch_all(ROOMS, ROOM_NM)
+
 
 def get_rooms_as_dict():
     """
     A function to return a dictionary of all rooms.
     """
-    return dbc.fetch_all_as_dict(ROOMS, ROOM_NM)
+    return db.fetch_all_as_dict(ROOMS, ROOM_NM)
 
 
 def room_exists(roomname):
@@ -57,7 +57,7 @@ def add_room(roomname):
     elif roomname in rooms:
         return DUPLICATE
     else:
-        dbc.insert_doc(ROOMS, {ROOM_NM: roomname, NUM_USERS: 0, USERS_LIST: []})
+        db.insert_doc(ROOMS, {ROOM_NM: roomname, NUM_USERS: 0, USERS_LIST: []})
         return OK
 
 
@@ -65,18 +65,19 @@ def delete_room(roomname):
     if not room_exists(roomname):
         return NOT_FOUND
     return OK
-    ###WORK IN PROGRESS###
-    
+    # WORK IN PROGRESS
+
 
 def get_users():
     """
     A function to return a list of all users.
     """
-    return dbc.fetch_all(USERS, USER_NM)
+    return db.fetch_all(USERS, USER_NM)
 
 
 def write_users(test):
     pass
+
 
 def write_rooms(test):
     pass
@@ -92,7 +93,7 @@ def add_user(username):
     elif username in users:
         return DUPLICATE
     else:
-        dbc.insert_doc(USERS, {USER_NM: username})
+        db.insert_doc(USERS, {USER_NM: username})
         return OK
 
 
@@ -110,8 +111,8 @@ def join_user(username):
         print(f'{rooms[random_room]=}')
         lst = rooms[random_room][USERS_LIST]
         num = rooms[random_room][NUM_USERS]
-        object_id = rooms[random_room]["_id"]
+        ob_id = rooms[random_room]["_id"]
         lst.append(username)
         num += 1
-        dbc.update_doc(ROOMS, {"_id" : object_id}, { "$set" : {USERS_LIST: lst, NUM_USERS: num}})
+        db.update_doc(ROOMS, {"_id" : ob_id}, { "$set" : {USERS_LIST: lst, NUM_USERS: num}})
         return rooms[random_room][ROOM_NM]

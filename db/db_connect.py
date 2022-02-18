@@ -2,10 +2,7 @@
 This file contains some common MongoDB code.
 """
 import os
-import json
 import pymongo as pm
-from pymongo.server_api import ServerApi
-import bson.json_util as bsutil
 
 
 # all of these will eventually be put in the env:
@@ -57,7 +54,7 @@ def delete_doc(collect_nm, filters={}):
 def fetch_all(collect_nm, key_nm):
     all_docs = []
     for doc in client[db_nm][collect_nm].find():
-        #print(doc)
+        # print(doc)
         all_docs.append(doc)
     return all_docs
 
@@ -67,16 +64,17 @@ def fetch_all_as_dict(collect_nm, key_nm):
     print(f'{all_list=}')
     all_dict = {}
     for doc in all_list:
-        #print(f'{doc=}')
+        # print(f'{doc=}')
         all_dict[doc[key_nm]] = doc
     return all_dict
-    
+
 
 def insert_doc(collect_nm, doc):
     """
     Inserts doc into collection.
     """
     client[db_nm][collect_nm].insert_one(doc)
+
 
 def update_doc(collect_nm, filters = {}, update_string = {}):
     """
