@@ -3,6 +3,8 @@ This file contains some common MongoDB code.
 """
 import os
 import pymongo as pm
+import json
+import bson.json_util as bsutil
 
 
 # all of these will eventually be put in the env:
@@ -55,7 +57,7 @@ def fetch_all(collect_nm, key_nm):
     all_docs = []
     for doc in client[db_nm][collect_nm].find():
         # print(doc)
-        all_docs.append(doc)
+        all_docs.append(json.loads(bsutil.dumps(doc)))
     return all_docs
 
 
