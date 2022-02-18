@@ -19,6 +19,8 @@ test_db = "testDB"
 client = None
 test = True
 
+if test: database_name = test_db
+else: database_name = db_nm
 
 def get_client():
     """
@@ -40,31 +42,31 @@ def get_client():
     return client
 
 
-def fetch_doc(collect_nm, filters = {}):
+def fetch_doc(database_name, collect_nm, filters = {}):
     """
     Fetch one record that meets filters.
     """
-    return client[db_nm][collect_nm].find_one(filters)
+    return client[database_name][collect_nm].find_one(filters)
 
 
-def delete_doc(collect_nm, filters = {}):
+def delete_doc(database_name, collect_nm, filters = {}):
     """
     Deletes doc from collection.
     """
-    return client[db_nm][collect_nm].delete_one(filters)
+    return client[database_name][collect_nm].delete_one(filters)
 
 
-def fetch_all(collect_nm, key_nm):
+def fetch_all(database_name, collect_nm, key_nm):
     all_docs = []
-    for doc in client[db_nm][collect_nm].find():
+    for doc in client[database_name][collect_nm].find():
         # print(doc)
         all_docs.append(json.loads(bsutil.dumps(doc)))
     return all_docs
 
 
-def fetch_all_as_dict(collect_nm, key_nm):
+def fetch_all_as_dict(database_name, collect_nm, key_nm):
     all_docs = []
-    for doc in client[db_nm][collect_nm].find():
+    for doc in client[database_name][collect_nm].find():
         all_docs.append(doc)
     all_dict = {}
     for doc in all_docs:
@@ -73,15 +75,15 @@ def fetch_all_as_dict(collect_nm, key_nm):
     return all_dict
 
 
-def insert_doc(collect_nm, doc):
+def insert_doc(database_name, collect_nm, doc):
     """
     Inserts doc into collection.
     """
-    client[db_nm][collect_nm].insert_one(doc)
+    client[database_name][collect_nm].insert_one(doc)
 
 
-def update_doc(collect_nm, filters = {}, update_string = {}):
+def update_doc(database_name, collect_nm, filters = {}, update_string = {}):
     """
     Inserts doc into collection.
     """
-    client[db_nm][collect_nm].update_one(filters, update_string)
+    client[database_name][collect_nm].update_one(filters, update_string)
