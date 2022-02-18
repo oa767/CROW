@@ -1,4 +1,4 @@
-LINTER = flake8 --ignore=E501,E251
+LINTER = flake8 --ignore=E501,E251,W503,E203,E201
 API_DIR = API
 DB_DIR = db
 REQ_DIR = .
