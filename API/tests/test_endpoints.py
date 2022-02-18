@@ -63,6 +63,7 @@ class EndpointTestCase(TestCase):
         rooms = db.get_rooms_as_dict()
         found = False
         for room in rooms:
+            print(f'{rooms[room]=}')
             if "test_username" in rooms[room]["list_users"]:
                 found = True
         self.assertTrue(found)
