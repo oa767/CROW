@@ -57,7 +57,7 @@ def del_one(collect_nm, filters={}):
 def fetch_all(collect_nm, key_nm):
     all_docs = []
     for doc in client[db_nm][collect_nm].find():
-        print(doc)
+        #print(doc)
         all_docs.append(doc)
     return all_docs
 
@@ -67,8 +67,8 @@ def fetch_all_as_dict(collect_nm, key_nm):
     print(f'{all_list=}')
     all_dict = {}
     for doc in all_list:
-        print(f'{doc=}')
-        all_dict[doc["_id"]] = doc[key_nm]
+        #print(f'{doc=}')
+        all_dict[doc[key_nm]] = doc
     return all_dict
     
 

@@ -13,7 +13,7 @@ HUGE_NUM = 10000000000000
 
 def new_entity_name(entity_name):
     int_name = random.randint(0, HUGE_NUM)
-    return "new {entity_name}" + str(int_name)
+    return "new " + str(entity_name) + " - " + str(int_name)
     
 class EndpointTestCase(TestCase):
     def setUp(self):
@@ -48,9 +48,9 @@ class EndpointTestCase(TestCase):
         cr = ep.CreateRoom(Resource)
         new_room = new_entity_name("room")
         ret = cr.post(new_room)
-        print(f'post {ret=}')
+        #print(f'post {ret=}')
         rooms = db.get_rooms_as_dict()
-        print(f'{rooms=}')
+        #print(f'{rooms=}')
         self.assertIn(new_room, rooms)
         
     def test_join_room(self):
