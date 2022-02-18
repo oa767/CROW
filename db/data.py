@@ -53,7 +53,7 @@ def room_exists(roomname):
     See if a room with roomname is in the db.
     Returns True of False.
     """
-    rec = dbc.fetch_one(ROOMS, {ROOM_NM: roomname})
+    rec = db.fetch_one(ROOMS, {ROOM_NM: roomname})
     return rec is not None
 
 
@@ -62,7 +62,7 @@ def user_exists(username):
     See if a user with username is in the db.
     Returns True of False.
     """
-    rec = dbc.fetch_one(USERS, filters={USER_NM: username})
+    rec = db.fetch_one(USERS, filters={USER_NM: username})
     return rec is not None
 
 
