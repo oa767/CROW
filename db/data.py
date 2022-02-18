@@ -24,6 +24,7 @@ NOT_FOUND = 1
 DUPLICATE = 2
 
 client = db.get_client()
+print(client)
 
 
 def get_rooms():
