@@ -19,8 +19,11 @@ test_db = "testDB"
 client = None
 test = True
 
-if test: database_name = test_db
-else: database_name = db_nm
+if test:
+    database_name = test_db
+else:
+    database_name = db_nm
+
 
 def get_client():
     """
