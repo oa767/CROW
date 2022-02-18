@@ -28,7 +28,6 @@ class EndpointTestCase(TestCase):
         self.assertIsInstance(ret, dict)
         self.assertIn(ep.HELLO, ret)
 
-    @skip("WORK IN PROGRESS!")
     def test_create_user(self):
         """
         Checks to see if we can successfully create a new user.
@@ -37,7 +36,7 @@ class EndpointTestCase(TestCase):
         cu = ep.CreateUser(Resource)
         new_user = new_entity_name("user")
         ret = cu.post(new_user)
-        users = db.get_users()
+        users = db.get_users_as_dict()
         self.assertIn(new_user, users)
         
     def test_create_room(self):
@@ -48,10 +47,7 @@ class EndpointTestCase(TestCase):
         cr = ep.CreateRoom(Resource)
         new_room = new_entity_name("room")
         ret = cr.post(new_room)
-        #print(f'post {ret=}')
         rooms = db.get_rooms_as_dict()
-        print("Create_Room:      ")
-        print(f'{rooms=}')
         self.assertIn(new_room, rooms)
         
     def test_join_room(self):
@@ -63,7 +59,6 @@ class EndpointTestCase(TestCase):
         rooms = db.get_rooms_as_dict()
         found = False
         for room in rooms:
-            print(f'{rooms[room]=}')
             if "test_username" in rooms[room]["list_users"]:
                 found = True
         self.assertTrue(found)

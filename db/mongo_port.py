@@ -25,7 +25,6 @@ def read_collection(json_version):
         with open(json_version) as file:
             return json.loads(file.read())
     except FileNotFoundError:
-        # print(f"{json_version} not found.")
         return None
 
 

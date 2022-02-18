@@ -39,14 +39,14 @@ def get_client():
     return client
 
 
-def fetch_doc(collect_nm, filters={}):
+def fetch_doc(collect_nm, filters = {}):
     """
     Fetch one record that meets filters.
     """
     return client[db_nm][collect_nm].find_one(filters)
 
 
-def delete_doc(collect_nm, filters={}):
+def delete_doc(collect_nm, filters = {}):
     """
     Deletes doc from collection.
     """

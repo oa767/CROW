@@ -15,8 +15,8 @@ DB_DIR = "chatDB"
 ROOMS = "rooms"
 USERS = "users"
 
-USER_NM = "userName"
-ROOM_NM = "roomName"
+USER_NM = "user_name"
+ROOM_NM = "room_name"
 NUM_USERS = "num_users"
 USERS_LIST = "list_users"
 
@@ -25,7 +25,6 @@ NOT_FOUND = 1
 DUPLICATE = 2
 
 client = db.get_client()
-print(client)
 
 
 def get_rooms():
@@ -42,9 +41,29 @@ def get_rooms_as_dict():
     return db.fetch_all_as_dict(ROOMS, ROOM_NM)
 
 
+def get_users_as_dict():
+    """
+    A function to return a dictionary of all users.
+    """
+    return db.fetch_all_as_dict(USERS, USER_NM)
+
+
 def room_exists(roomname):
-    rooms = get_rooms_as_dict()
-    return roomname in rooms
+    """
+    See if a room with roomname is in the db.
+    Returns True of False.
+    """
+    rec = dbc.fetch_one(ROOMS, {ROOM_NM: roomname})
+    return rec is not None
+
+
+def user_exists(username):
+    """
+    See if a user with username is in the db.
+    Returns True of False.
+    """
+    rec = dbc.fetch_one(USERS, filters={USER_NM: username})
+    return rec is not None
 
 
 def add_room(roomname):
@@ -62,10 +81,25 @@ def add_room(roomname):
 
 
 def delete_room(roomname):
+    """
+    Deletes a room from the room database.
+    """
     if not room_exists(roomname):
         return NOT_FOUND
-    return OK
-    # WORK IN PROGRESS
+    else:
+        db.delete_doc(ROOMS, {ROOM_NM: roomname})
+        return OK
+
+
+def delete_user(username):
+    """
+    Deletes a user from the user database.
+    """
+    if not user_exists(username):
+        return NOT_FOUND
+    else:
+        db.delete_doc(USERS, {USER_NM: username})
+        return OK
 
 
 def get_users():
@@ -73,14 +107,6 @@ def get_users():
     A function to return a list of all users.
     """
     return db.fetch_all(USERS, USER_NM)
-
-
-def write_users(test):
-    pass
-
-
-def write_rooms(test):
-    pass
 
 
 def add_user(username):
@@ -105,10 +131,7 @@ def join_user(username):
     if rooms is None:
         return NOT_FOUND
     else:
-        print("\njoin_user\n", rooms, "\n\n")
         random_room = random.choice(list(rooms))
-        print(f'{random_room=}')
-        print(f'{rooms[random_room]=}')
         lst = rooms[random_room][USERS_LIST]
         num = rooms[random_room][NUM_USERS]
         ob_id = rooms[random_room]["_id"]

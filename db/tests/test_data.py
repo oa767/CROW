@@ -3,7 +3,6 @@ This file holds the tests for db.py.
 """
 
 from unittest import TestCase, skip
-# import random
 
 import db.data as db
 
