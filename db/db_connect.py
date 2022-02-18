@@ -14,11 +14,10 @@ passwd = os.environ.get("MONGO_PASSWD", '')
 cloud_mdb = "mongodb+srv"
 db_params = "retryWrites=true&w=majority"
 db_nm = "chatDB"
-
-REMOTE = "0"
-LOCAL = "1"
+test_db = "testDB"
 
 client = None
+test = True
 
 
 def get_client():
@@ -28,11 +27,13 @@ def get_client():
     Also set global client variable.
     """
     global client
-    if os.environ.get("LOCAL_MONGO", REMOTE) == LOCAL:
-        print("Connecting to Mongo locally.")
-        client = pm.MongoClient()
+    if test:
+        print("Connecting to testDB.")
+        client = pm.MongoClient(f"mongodb+srv://oabouelnour:{passwd}@"
+                                + f"{cloud_svc}/{test_db}?"
+                                + db_params)
     else:
-        print("Connecting to Mongo remotely.")
+        print("Connecting to chatDB.")
         client = pm.MongoClient(f"mongodb+srv://oabouelnour:{passwd}@"
                                 + f"{cloud_svc}/{db_nm}?"
                                 + db_params)

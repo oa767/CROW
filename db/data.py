@@ -9,7 +9,6 @@ import random
 import db.db_connect as db
 
 APP_HOME = os.environ["APP_HOME"]
-DB_DIR = "chatDB"
 
 # field names in our DB:
 ROOMS = "rooms"
