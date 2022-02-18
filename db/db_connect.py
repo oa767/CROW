@@ -42,21 +42,21 @@ def get_client():
     return client
 
 
-def fetch_doc(database_name, collect_nm, filters = {}):
+def fetch_doc(collect_nm, filters = {}):
     """
     Fetch one record that meets filters.
     """
     return client[database_name][collect_nm].find_one(filters)
 
 
-def delete_doc(database_name, collect_nm, filters = {}):
+def delete_doc(collect_nm, filters = {}):
     """
     Deletes doc from collection.
     """
     return client[database_name][collect_nm].delete_one(filters)
 
 
-def fetch_all(database_name, collect_nm, key_nm):
+def fetch_all(collect_nm, key_nm):
     all_docs = []
     for doc in client[database_name][collect_nm].find():
         # print(doc)
@@ -64,7 +64,7 @@ def fetch_all(database_name, collect_nm, key_nm):
     return all_docs
 
 
-def fetch_all_as_dict(database_name, collect_nm, key_nm):
+def fetch_all_as_dict(collect_nm, key_nm):
     all_docs = []
     for doc in client[database_name][collect_nm].find():
         all_docs.append(doc)
@@ -75,14 +75,14 @@ def fetch_all_as_dict(database_name, collect_nm, key_nm):
     return all_dict
 
 
-def insert_doc(database_name, collect_nm, doc):
+def insert_doc(collect_nm, doc):
     """
     Inserts doc into collection.
     """
     client[database_name][collect_nm].insert_one(doc)
 
 
-def update_doc(database_name, collect_nm, filters = {}, update_string = {}):
+def update_doc(collect_nm, filters = {}, update_string = {}):
     """
     Inserts doc into collection.
     """
