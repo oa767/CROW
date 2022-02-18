@@ -105,7 +105,7 @@ def join_user(username):
         return NOT_FOUND
     else:
         print("\njoin_user\n", rooms, "\n\n")
-        random_room, other = random.choice(list(rooms))
+        random_room = random.choice(list(rooms))
         lst = rooms[random_room][USERS_LIST]
         num = rooms[random_room][NUM_USERS]
         lst.append(username)
