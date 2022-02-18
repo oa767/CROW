@@ -58,7 +58,7 @@ def add_room(roomname):
     else:
         print("\ncreate_room\n", rooms, "\n\n")
         #rooms[roomname] = {"num_users": 0, "users": []}
-        #dbc.insert_doc(ROOMS, {ROOM_NM: roomname, NUM_USERS: 0})
+        dbc.insert_doc(ROOMS, {ROOM_NM: roomname, NUM_USERS: 0})
         return OK
 
 
