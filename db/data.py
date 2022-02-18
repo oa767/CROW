@@ -56,7 +56,7 @@ def add_room(roomname):
     elif roomname in rooms:
         return DUPLICATE
     else:
-        print("\n\n", rooms, "\n\n")
+        print("\ncreate_room\n", rooms, "\n\n")
         #rooms[roomname] = {"num_users": 0, "users": []}
         #dbc.insert_doc(ROOMS, {ROOM_NM: roomname, NUM_USERS: 0})
         return OK
@@ -106,7 +106,7 @@ def join_user(username):
     if rooms is None:
         return NOT_FOUND
     else:
-        print("\n\n", rooms, "\n\n")
+        print("\njoin_user\n", rooms, "\n\n")
         random_room = random.choice(list(rooms))
         #rooms[random_room]["users"].append(username)
         #rooms[random_room]["num_users"] += 1
