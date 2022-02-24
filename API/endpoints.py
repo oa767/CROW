@@ -90,6 +90,26 @@ class CreateRoom(Resource):
             return f"{roomname} added."
 
 
+@api.route('/users/create/<username>')
+class CreateUser(Resource):
+    """
+    This class supports adding a user to the chat room.
+    """
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key has been found')
+    def post(self, username):
+        """
+        This method adds a user to the users database.
+        """
+        ret = db.add_user(username)
+        if ret == db.NOT_FOUND:
+            raise (wz.NotFound("User db not found."))
+        elif ret == db.DUPLICATE:
+            raise (wz.NotAcceptable("The username provided already exists."))
+        return f"{username} added."
+
+
 @api.route('/rooms/delete/<roomname>')
 class DeleteRoom(Resource):
     """
@@ -110,6 +130,28 @@ class DeleteRoom(Resource):
             raise (wz.NotFound(f"Chat room {roomname} not found."))
         else:
             return f"{roomname} deleted."
+
+
+@api.route('/users/delete/<username>')
+class DeleteUser(Resource):
+    """
+    This class enables deleting a user from the database.
+    While 'Forbidden` is a possible return value, we have not yet implemented
+    a user privileges section, so it isn't used yet.
+    """
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    @api.response(HTTPStatus.FORBIDDEN,
+                  'Only the user themselves can delete it.')
+    def post(self, username):
+        """
+        This method deletes a user from the user db.
+        """
+        ret = db.delete_user(username)
+        if ret == db.NOT_FOUND:
+            raise (wz.NotFound(f"User {username} not found."))
+        else:
+            return f"{username} deleted."
 
 
 @api.route('/rooms/join/<username>')
@@ -143,23 +185,3 @@ class Endpoints(Resource):
         """
         endpoints = sorted(rule.rule for rule in api.app.url_map.iter_rules())
         return {"Available endpoints": endpoints}
-
-
-@api.route('/users/create/<username>')
-class CreateUser(Resource):
-    """
-    This class supports adding a user to the chat room.
-    """
-    @api.response(HTTPStatus.OK, 'Success')
-    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key has been found')
-    def post(self, username):
-        """
-        This method adds a user to the users database.
-        """
-        ret = db.add_user(username)
-        if ret == db.NOT_FOUND:
-            raise (wz.NotFound("User db not found."))
-        elif ret == db.DUPLICATE:
-            raise (wz.NotAcceptable("The username provided already exists."))
-        return f"{username} added."
