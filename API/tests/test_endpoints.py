@@ -63,7 +63,7 @@ class EndpointTestCase(TestCase):
                 found = True
         self.assertTrue(found)
             
-    def test_list_rooms1(self):
+    def test_list_rooms(self):
         """
         Post-condition 1: return is a list.
         """
