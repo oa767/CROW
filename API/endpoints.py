@@ -173,6 +173,9 @@ class JoinRoom(Resource):
             return f"{username} has joined a room."
 
 
+update_room_fields = api.model('Resource', {
+    'newname': fields.String,
+})
 @api.route('/rooms/update/<roomname>')
 class UpdateRoom(Resource):
     """
@@ -181,6 +184,7 @@ class UpdateRoom(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
     @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key has been found')
+    @api.expect(update_room_fields)
     def put(self, roomname, newname):
         """
         This method updates a room already in the room database.
@@ -192,6 +196,9 @@ class UpdateRoom(Resource):
             return f"{roomname} updated."
 
 
+update_user_fields = api.model('Resource', {
+    'newname': fields.String,
+})
 @api.route('/users/update/<username>')
 class UpdateUser(Resource):
     """
@@ -200,6 +207,7 @@ class UpdateUser(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
     @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key has been found')
+    @api.expect(update_user_fields)
     def put(self, username, newname):
         """
         This method updates a user already in the user database.
