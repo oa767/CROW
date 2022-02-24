@@ -153,7 +153,7 @@ def update_room(roomname, newname):
     else:
         for room in rooms:
             if rooms[room][ROOM_NM] == roomname:
-                ob_id = room["_id"]
+                ob_id = rooms[room]["_id"]
                 found = True
                 index = i
             i += 1
