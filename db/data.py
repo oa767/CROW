@@ -170,7 +170,7 @@ def update_user(username, newname):
     if users is None:
         return NOT_FOUND
     else:
-        for user in user:
+        for user in users:
             if users[user][USER_NM] == username:
                 ob_id = users[user]["_id"]
                 found = True
