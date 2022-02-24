@@ -52,7 +52,8 @@ class EndpointTestCase(TestCase):
         
     def test_join_room(self):
         """
-        Post-condition 1: return is a dictionary.
+        Checks to see if a user can successfully join a room.
+        Post-condition 1: user has joined room.
         """
         jr = ep.JoinRoom(Resource)
         ret = jr.post("test_username")
@@ -62,7 +63,23 @@ class EndpointTestCase(TestCase):
             if "test_username" in rooms[room]["list_users"]:
                 found = True
         self.assertTrue(found)
-            
+
+    def test_update_room(self):
+        """
+        Post-condition 1: return is a dictionary.
+        """
+        cr = ep.CreateRoom(Resource)
+        room = new_entity_name("room")
+        ret = cr.post(room)
+        ur = ep.UpdateRoom(Resource)
+        ret = ur.put(room, "updatedname")
+        rooms = db.get_rooms_as_dict()
+        found = False
+        for room in rooms:
+            if "updatedname" == rooms[room]["room_name"]:
+                found = True
+        self.assertTrue(found)
+
     def test_list_rooms(self):
         """
         Post-condition 1: return is a list.

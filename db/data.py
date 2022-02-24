@@ -157,7 +157,7 @@ def update_room(roomname, newname):
                 found = True
                 index = i
             i += 1
-        if found == False:
+        if not found:
             return NOT_FOUND
         else:
             db.update_doc(ROOMS, {"_id" : ob_id}, { "$set" : {ROOM_NM: newname}})
