@@ -178,4 +178,4 @@ def update_user(username, newname):
             return NOT_FOUND
         else:
             db.update_doc(USERS, {"_id" : ob_id}, { "$set" : {USER_NM: newname}})
-            return users[username][ROOM_NM]
+            return users[username][USER_NM]

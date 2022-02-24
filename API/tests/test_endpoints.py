@@ -27,6 +27,25 @@ class EndpointTestCase(TestCase):
         ret = hello.get()
         self.assertIsInstance(ret, dict)
         self.assertIn(ep.HELLO, ret)
+    
+    def test_list_rooms(self):
+        """
+        Post-condition 1: return is a list.
+        """
+        lr = ep.ListRooms(Resource)
+        ret = lr.get()
+        self.assertIsInstance(ret, list)
+
+    def test_create_room(self):
+        """
+        Checks to see if we can successfully create a new room.
+        Post-condition 1: room is in DB.
+        """
+        cr = ep.CreateRoom(Resource)
+        new_room = new_entity_name("room")
+        ret = cr.post(new_room)
+        rooms = db.get_rooms_as_dict()
+        self.assertIn(new_room, rooms)
 
     def test_create_user(self):
         """
@@ -38,18 +57,7 @@ class EndpointTestCase(TestCase):
         ret = cu.post(new_user)
         users = db.get_users_as_dict()
         self.assertIn(new_user, users)
-        
-    def test_create_room(self):
-        """
-        Checks to see if we can successfully create a new room.
-        Post-condition 1: room is in DB.
-        """
-        cr = ep.CreateRoom(Resource)
-        new_room = new_entity_name("room")
-        ret = cr.post(new_room)
-        rooms = db.get_rooms_as_dict()
-        self.assertIn(new_room, rooms)
-        
+
     def test_join_room(self):
         """
         Checks to see if a user can successfully join a room.
@@ -72,14 +80,16 @@ class EndpointTestCase(TestCase):
         cr = ep.CreateRoom(Resource)
         room = new_entity_name("room")
         ret = cr.post(room)
-        ur = ep.UpdateRoom(Resource)
-        ret = ur.put(room, "updatedname")
         rooms = db.get_rooms_as_dict()
-        found = False
-        for room in rooms:
-            if "updatedname" == rooms[room]["room_name"]:
-                found = True
-        self.assertTrue(found)
+        if self.assertIn(room, rooms):
+            ur = ep.UpdateRoom(Resource)
+            ret = ur.put(room, "updatedname")
+            rooms = db.get_rooms_as_dict()
+            found = False
+            for room in rooms:
+                if "updatedname" == rooms[room]["room_name"]:
+                    found = True
+            self.assertTrue(found)
 
     def test_update_user(self):
         """
@@ -89,19 +99,43 @@ class EndpointTestCase(TestCase):
         cr = ep.CreateUser(Resource)
         user = new_entity_name("user")
         ret = cr.post(user)
-        ur = ep.UpdateUser(Resource)
-        ret = ur.put(user, "updatedname")
         users = db.get_users_as_dict()
-        found = False
-        for user in users:
-            if "updatedname" == users[user]["user_name"]:
-                found = True
-        self.assertTrue(found)
+        if self.assertIn(user, user):
+            ur = ep.UpdateUser(Resource)
+            ret = ur.put(user, "updatedname")
+            users = db.get_users_as_dict()
+            found = False
+            for user in users:
+                if "updatedname" == users[user]["user_name"]:
+                    found = True
+            self.assertTrue(found)
 
-    def test_list_rooms(self):
+    def test_delete_room(self):
         """
-        Post-condition 1: return is a list.
+        Checks to see if we can successfully delete a room.
+        Post-condition 1: room is not in DB.
         """
-        lr = ep.ListRooms(Resource)
-        ret = lr.get()
-        self.assertIsInstance(ret, list)
+        cr = ep.CreateRoom(Resource)
+        room = new_entity_name("room")
+        ret = cr.post(room)
+        rooms = db.get_rooms_as_dict()
+        if self.assertIn(room, rooms):
+            dr = ep.DeleteRoom(Resource)
+            ret = dr.post(room)
+            rooms = db.get_rooms_as_dict()
+            self.assertNotIn(room, rooms)
+
+    def test_delete_user(self):
+        """
+        Checks to see if we can successfully delete a user.
+        Post-condition 1: user is not in DB.
+        """
+        cr = ep.CreateUser(Resource)
+        user = new_entity_name("user")
+        ret = cr.post(user)
+        users = db.get_users_as_dict()
+        if self.assertIn(user, users):
+            du = ep.DeleteUser(Resource)
+            ret = du.post(user)
+            users = db.get_users_as_dict()
+            self.assertNotIn(user, users)
