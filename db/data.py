@@ -147,7 +147,6 @@ def update_room(roomname, newname):
     """
     rooms = get_rooms_as_dict()
     found = False
-    i = 0
     if rooms is None:
         return NOT_FOUND
     else:
@@ -155,8 +154,6 @@ def update_room(roomname, newname):
             if rooms[room][ROOM_NM] == roomname:
                 ob_id = rooms[room]["_id"]
                 found = True
-                index = i
-            i += 1
         if not found:
             return NOT_FOUND
         else:
