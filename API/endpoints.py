@@ -6,7 +6,7 @@ The endpoint called `endpoints` will return all available endpoints.
 from http import HTTPStatus
 from flask import Flask
 from flask_cors import CORS
-from flask_restx import Resource, Api
+from flask_restx import Resource, Api, fields
 import werkzeug.exceptions as wz
 import db.data as db
 
