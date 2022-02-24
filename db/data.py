@@ -145,7 +145,7 @@ def update_room(roomname, newname):
     """
     Updates a room in the room database.
     """
-    rooms = get_rooms()
+    rooms = get_rooms_as_dict()
     found = False
     i = 0
     if rooms is None:
@@ -161,4 +161,4 @@ def update_room(roomname, newname):
             return NOT_FOUND
         else:
             db.update_doc(ROOMS, {"_id" : ob_id}, { "$set" : {ROOM_NM: newname}})
-            return rooms[index][ROOM_NM]
+            return rooms[roomname][ROOM_NM]
