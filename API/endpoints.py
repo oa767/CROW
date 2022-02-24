@@ -192,6 +192,25 @@ class UpdateRoom(Resource):
             return f"{roomname} updated."
 
 
+@api.route('/users/update/<username>')
+class UpdateUser(Resource):
+    """
+    This class supports updating a user.
+    """
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key has been found')
+    def put(self, username, newname):
+        """
+        This method updates a user already in the user database.
+        """
+        ret = db.update_user(username, newname)
+        if ret == db.NOT_FOUND:
+            raise (wz.NotFound("User {username} cannot be found."))
+        else:
+            return f"{username} updated."
+
+
 @api.route('/endpoints')
 class Endpoints(Resource):
     """

@@ -66,7 +66,8 @@ class EndpointTestCase(TestCase):
 
     def test_update_room(self):
         """
-        Post-condition 1: return is a dictionary.
+        Checks to see if a room can be updated.
+        Post-condition 1: room has been updated.
         """
         cr = ep.CreateRoom(Resource)
         room = new_entity_name("room")
@@ -77,6 +78,23 @@ class EndpointTestCase(TestCase):
         found = False
         for room in rooms:
             if "updatedname" == rooms[room]["room_name"]:
+                found = True
+        self.assertTrue(found)
+
+    def test_update_user(self):
+        """
+        Checks to see if a user can be updated.
+        Post-condition 1: user has been updated.
+        """
+        cr = ep.CreateUser(Resource)
+        user = new_entity_name("user")
+        ret = cr.post(user)
+        ur = ep.UpdateUser(Resource)
+        ret = ur.put(user, "updatedname")
+        users = db.get_users_as_dict()
+        found = False
+        for user in users:
+            if "updatedname" == users[user]["user_name"]:
                 found = True
         self.assertTrue(found)
 

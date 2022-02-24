@@ -159,3 +159,23 @@ def update_room(roomname, newname):
         else:
             db.update_doc(ROOMS, {"_id" : ob_id}, { "$set" : {ROOM_NM: newname}})
             return rooms[roomname][ROOM_NM]
+
+
+def update_user(username, newname):
+    """
+    Updates a user in the user database.
+    """
+    users = get_users_as_dict()
+    found = False
+    if users is None:
+        return NOT_FOUND
+    else:
+        for user in user:
+            if users[user][USER_NM] == username:
+                ob_id = users[user]["_id"]
+                found = True
+        if not found:
+            return NOT_FOUND
+        else:
+            db.update_doc(USERS, {"_id" : ob_id}, { "$set" : {USER_NM: newname}})
+            return users[username][ROOM_NM]
