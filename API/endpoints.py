@@ -155,7 +155,7 @@ class DeleteUser(Resource):
 
 
 @api.route('/rooms/join/<username>')
-class JoinRoom(Resource):
+class JoinRandomRoom(Resource):
     """
     This class supports joining a random chat room.
     """
@@ -173,10 +173,26 @@ class JoinRoom(Resource):
             return f"{username} has joined a room."
 
 
-update_room_fields = api.model('Resource', {
-    'newname': fields.String,
-})
-@api.route('/rooms/update/<roomname>')
+@api.route('/rooms/join/<roomcode>/<username>')
+class JoinRoomCode(Resource):
+    """
+    This class supports joining a random chat room.
+    """
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key has been found')
+    def post(self, username):
+        """
+        This method adds the user to a random chat room.
+        """
+        ret = db.join_room(username)
+        if ret == db.NOT_FOUND:
+            raise (wz.NotFound("No chat rooms available."))
+        else:
+            return f"{username} has joined a room."
+
+
+@api.route('/rooms/update/<roomname>/<newname>')
 class UpdateRoom(Resource):
     """
     This class supports updating a chat room.
@@ -184,7 +200,6 @@ class UpdateRoom(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
     @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key has been found')
-    @api.expect(update_room_fields)
     def put(self, roomname, newname):
         """
         This method updates a room already in the room database.
@@ -193,13 +208,10 @@ class UpdateRoom(Resource):
         if ret == db.NOT_FOUND:
             raise (wz.NotFound("Chat room {roomname} cannot be found."))
         else:
-            return f"{roomname} updated."
+            return f"{roomname} updated to {newname}."
 
 
-update_user_fields = api.model('Resource', {
-    'newname': fields.String,
-})
-@api.route('/users/update/<username>')
+@api.route('/users/update/<username>/<newname>')
 class UpdateUser(Resource):
     """
     This class supports updating a user.
@@ -216,7 +228,7 @@ class UpdateUser(Resource):
         if ret == db.NOT_FOUND:
             raise (wz.NotFound("User {username} cannot be found."))
         else:
-            return f"{username} updated."
+            return f"{username} updated to {newname}."
 
 
 @api.route('/endpoints')
