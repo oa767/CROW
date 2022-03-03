@@ -11,7 +11,9 @@ The idea behind this website draws inspiration from Snapchats features. In Snapc
 and video to each other that eventually disappear if they are not saved by the receiver. In Snapchat, users are
 required to have unique accounts in order to use the application. This website does not need accounts in order
 to have access to all the features. Instead, users are given a unique username from a set of options. These
-usernames are NOT unique for each chatroom. Every chatroom uses the same set of usernames.
+usernames are NOT unique for each chatroom. Every chatroom uses the same set of usernames. The set of usernames
+will be randomly generated from a source. Perhaps try pulling a database of most common names in America from 
+another source to generate usernames.
 
 Chatrooms are designed to automatically close after twenty minutes of idle period. When closed all chat messages
 will be deleted so that they are not retrievable.
