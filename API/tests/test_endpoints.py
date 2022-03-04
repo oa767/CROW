@@ -70,6 +70,7 @@ class EndpointTestCase(TestCase):
         for room in rooms:
             if "test_username" in rooms[room]["list_users"]:
                 print(rooms[room]["_id"])
+                print(type(rooms[room]["_id"]))
                 found = True
         self.assertTrue(found)
         
