@@ -18,6 +18,7 @@ USER_NM = "user_name"
 ROOM_NM = "room_name"
 NUM_USERS = "num_users"
 USERS_LIST = "list_users"
+ID = "_id"
 
 OK = 0
 NOT_FOUND = 1
@@ -123,7 +124,7 @@ def delete_user(username):
         return OK
 
 
-def join_room(username):
+def join_random_room(username):
     """
     Adds a user to a chat room.
     """
@@ -134,11 +135,30 @@ def join_room(username):
         random_room = random.choice(list(rooms))
         lst = rooms[random_room][USERS_LIST]
         num = rooms[random_room][NUM_USERS]
-        ob_id = rooms[random_room]["_id"]
+        ob_id = rooms[random_room][ID]
         lst.append(username)
         num += 1
-        db.update_doc(ROOMS, {"_id" : ob_id}, { "$set" : {USERS_LIST: lst, NUM_USERS: num}})
+        db.update_doc(ROOMS, {ID : ob_id}, { "$set" : {USERS_LIST: lst, NUM_USERS: num}})
         return rooms[random_room][ROOM_NM]
+
+
+def join_room_code(roomcode, username):
+    """
+    Adds a user to a chat room.
+    """
+    rooms = db.fetch_all_as_dict(ROOMS, ID)
+    if rooms is None:
+        return NOT_FOUND
+    else:
+        try:
+            requested_room = rooms[roomcode]
+            lst = rooms[roomcode][USERS_LIST]
+            num = rooms[roomcode][NUM_USERS]
+            lst.append(username)
+            num += 1
+            db.update_doc(ROOMS, {ID : roomcode}, { "$set" : {USERS_LIST: lst, NUM_USERS: num}})
+        except KeyError:
+            return NOT_FOUND
 
 
 def update_room(roomname, newname):
@@ -152,12 +172,12 @@ def update_room(roomname, newname):
     else:
         for room in rooms:
             if rooms[room][ROOM_NM] == roomname:
-                ob_id = rooms[room]["_id"]
+                ob_id = rooms[room][ID]
                 found = True
         if not found:
             return NOT_FOUND
         else:
-            db.update_doc(ROOMS, {"_id" : ob_id}, { "$set" : {ROOM_NM: newname}})
+            db.update_doc(ROOMS, {ID : ob_id}, { "$set" : {ROOM_NM: newname}})
             return rooms[roomname][ROOM_NM]
 
 
@@ -172,10 +192,10 @@ def update_user(username, newname):
     else:
         for user in users:
             if users[user][USER_NM] == username:
-                ob_id = users[user]["_id"]
+                ob_id = users[user][ID]
                 found = True
         if not found:
             return NOT_FOUND
         else:
-            db.update_doc(USERS, {"_id" : ob_id}, { "$set" : {USER_NM: newname}})
+            db.update_doc(USERS, {ID : ob_id}, { "$set" : {USER_NM: newname}})
             return users[username][USER_NM]

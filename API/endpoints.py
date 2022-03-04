@@ -166,7 +166,7 @@ class JoinRandomRoom(Resource):
         """
         This method adds the user to a random chat room.
         """
-        ret = db.join_room(username)
+        ret = db.join_random_room(username)
         if ret == db.NOT_FOUND:
             raise (wz.NotFound("No chat rooms available."))
         else:
@@ -181,15 +181,15 @@ class JoinRoomCode(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
     @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key has been found')
-    def post(self, username):
+    def post(self, roomcode, username):
         """
         This method adds the user to a random chat room.
         """
-        ret = db.join_room(username)
+        ret = db.join_room_code(roomcode, username)
         if ret == db.NOT_FOUND:
-            raise (wz.NotFound("No chat rooms available."))
+            raise (wz.NotFound("No chat room exists w/ this ID."))
         else:
-            return f"{username} has joined a room."
+            return f"{username} has joined room {roomcode}."
 
 
 @api.route('/rooms/update/<roomname>/<newname>')
