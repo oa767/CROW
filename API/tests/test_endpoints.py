@@ -4,11 +4,11 @@ This file holds the tests for endpoints.py.
 
 from unittest import TestCase, skip 
 from flask_restx import Resource, Api
-from bson.objectid import ObjectID
 import random             
 
 import API.endpoints as ep
 import db.data as db
+import db.db_connect as db_connect
 
 HUGE_NUM = 10000000000000
 
@@ -81,10 +81,11 @@ class EndpointTestCase(TestCase):
         Post-condition 1: user has joined room.
         """
         jr = ep.JoinRoomCode(Resource)
-        ret = jr.post(ObjectID("620f1e5f16a2e3f23e0de44e"), "test_username")
+        ob_id = db_connect.create_object_id("620f1e5f16a2e3f23e0de44e")
+        ret = jr.post(ob_id, "test_username")
         rooms = db.fetch_all_as_dict(ROOMS, ID)
         found = False
-        if "test_username" in rooms[ObjectID("620f1e5f16a2e3f23e0de44e")]["list_users"]:
+        if "test_username" in rooms[ob_id]["list_users"]:
             found = True
         self.assertTrue(found)
 

@@ -5,6 +5,7 @@ import os
 import pymongo as pm
 import json
 import bson.json_util as bsutil
+from bson.objectid import ObjectID
 
 
 # all of these will eventually be put in the env:
@@ -76,6 +77,10 @@ def fetch_all_as_dict(collect_nm, key_nm):
         # print(f'{doc=}')
         all_dict[doc[key_nm]] = doc
     return all_dict
+
+
+def create_object_id(ob_id):
+    return ObjectID(ob_id)
 
 
 def insert_doc(collect_nm, doc):
