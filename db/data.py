@@ -13,7 +13,6 @@ APP_HOME = os.environ["APP_HOME"]
 # field names in our DB:
 ROOMS = "rooms"
 USERS = "users"
-
 USER_NM = "user_name"
 ROOM_NM = "room_name"
 NUM_USERS = "num_users"

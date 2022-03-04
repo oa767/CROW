@@ -10,6 +10,15 @@ import API.endpoints as ep
 import db.data as db
 import db.db_connect as db_connect
 
+# field names in our DB:
+ROOMS = "rooms"
+USERS = "users"
+USER_NM = "user_name"
+ROOM_NM = "room_name"
+NUM_USERS = "num_users"
+USERS_LIST = "list_users"
+ID = "_id"
+
 HUGE_NUM = 10000000000000
 
 def new_entity_name(entity_name):
