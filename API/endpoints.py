@@ -219,7 +219,6 @@ class UpdateUser(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
     @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key has been found')
-    @api.expect(update_user_fields)
     def put(self, username, newname):
         """
         This method updates a user already in the user database.
