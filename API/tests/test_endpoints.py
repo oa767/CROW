@@ -58,18 +58,32 @@ class EndpointTestCase(TestCase):
         users = db.get_users_as_dict()
         self.assertIn(new_user, users)
 
-    def test_join_room(self):
+    def test_join_random_room(self):
         """
         Checks to see if a user can successfully join a room.
         Post-condition 1: user has joined room.
         """
-        jr = ep.JoinRoom(Resource)
+        jr = ep.JoinRandomRoom(Resource)
         ret = jr.post("test_username")
         rooms = db.get_rooms_as_dict()
         found = False
         for room in rooms:
             if "test_username" in rooms[room]["list_users"]:
+                print(rooms[room]["_id"])
                 found = True
+        self.assertTrue(found)
+        
+    def test_join_room_code(self):
+        """
+        Checks to see if a user can successfully join a room using a specific roomcode.
+        Post-condition 1: user has joined room.
+        """
+        jr = ep.JoinRoomCode(Resource)
+        ret = jr.post(620f1e5f16a2e3f23e0de44e, "test_username")
+        rooms = db.fetch_all_as_dict(ROOMS, ID)
+        found = False
+        if "test_username" in rooms[620f1e5f16a2e3f23e0de44e]["list_users"]:
+            found = True
         self.assertTrue(found)
 
     def test_update_room(self):
