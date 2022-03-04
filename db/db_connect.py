@@ -80,7 +80,7 @@ def fetch_all_as_dict(collect_nm, key_nm):
 
 
 def create_object_id(ob_id):
-    return ObjectID(ob_id)
+    return ObjectId(ob_id)
 
 
 def insert_doc(collect_nm, doc):
