@@ -4,6 +4,7 @@ This file holds the tests for endpoints.py.
 
 from unittest import TestCase, skip 
 from flask_restx import Resource, Api
+from bson.objectid import ObjectID
 import random             
 
 import API.endpoints as ep
@@ -80,10 +81,10 @@ class EndpointTestCase(TestCase):
         Post-condition 1: user has joined room.
         """
         jr = ep.JoinRoomCode(Resource)
-        ret = jr.post("620f1e5f16a2e3f23e0de44e", "test_username")
+        ret = jr.post(ObjectID("620f1e5f16a2e3f23e0de44e"), "test_username")
         rooms = db.fetch_all_as_dict(ROOMS, ID)
         found = False
-        if "test_username" in rooms["620f1e5f16a2e3f23e0de44e"]["list_users"]:
+        if "test_username" in rooms[ObjectID("620f1e5f16a2e3f23e0de44e")]["list_users"]:
             found = True
         self.assertTrue(found)
 
