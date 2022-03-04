@@ -83,7 +83,7 @@ class EndpointTestCase(TestCase):
         jr = ep.JoinRoomCode(Resource)
         ob_id = db_connect.create_object_id("620f1e5f16a2e3f23e0de44e")
         ret = jr.post(ob_id, "test_username")
-        rooms = db.fetch_all_as_dict(ROOMS, ID)
+        rooms = db_connect.fetch_all_as_dict(ROOMS, ID)
         found = False
         if "test_username" in rooms[ob_id]["list_users"]:
             found = True
