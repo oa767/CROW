@@ -10,6 +10,15 @@ import API.endpoints as ep
 import db.data as db
 import db.db_connect as db_connect
 
+# field names in our DB:
+ROOMS = "rooms"
+USERS = "users"
+USER_NM = "user_name"
+ROOM_NM = "room_name"
+NUM_USERS = "num_users"
+USERS_LIST = "list_users"
+ID = "_id"
+
 HUGE_NUM = 10000000000000
 
 def new_entity_name(entity_name):
@@ -81,11 +90,11 @@ class EndpointTestCase(TestCase):
         Post-condition 1: user has joined room.
         """
         jr = ep.JoinRoomCode(Resource)
-        ob_id = db_connect.create_object_id("620f1e5f16a2e3f23e0de44e")
+        ob_id = "620f1e5f16a2e3f23e0de44e"
         ret = jr.post(ob_id, "test_username")
-        rooms = db.fetch_all_as_dict(ROOMS, ID)
+        rooms = db_connect.fetch_all_as_dict(ROOMS, ID)
         found = False
-        if "test_username" in rooms[ob_id]["list_users"]:
+        if "test_username" in rooms[db_connect.create_object_id(ob_id)]["list_users"]:
             found = True
         self.assertTrue(found)
 

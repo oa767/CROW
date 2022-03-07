@@ -13,7 +13,6 @@ APP_HOME = os.environ["APP_HOME"]
 # field names in our DB:
 ROOMS = "rooms"
 USERS = "users"
-
 USER_NM = "user_name"
 ROOM_NM = "room_name"
 NUM_USERS = "num_users"
@@ -150,13 +149,14 @@ def join_room_code(roomcode, username):
     if rooms is None:
         return NOT_FOUND
     else:
-        try:
-            requested_room = rooms[roomcode]
-            lst = rooms[roomcode][USERS_LIST]
-            num = rooms[roomcode][NUM_USERS]
+        try: 
+            ob_id = db.create_object_id(roomcode)
+            requested_room = rooms[ob_id]
+            lst = rooms[ob_id][USERS_LIST]
+            num = rooms[ob_id][NUM_USERS]
             lst.append(username)
             num += 1
-            db.update_doc(ROOMS, {ID : roomcode}, { "$set" : {USERS_LIST: lst, NUM_USERS: num}})
+            db.update_doc(ROOMS, {ID : ob_id}, { "$set" : {USERS_LIST: lst, NUM_USERS: num}})
         except KeyError:
             return NOT_FOUND
 
