@@ -135,12 +135,10 @@ class EndpointTestCase(TestCase):
         cr = ep.CreateRoom(Resource)
         room = new_entity_name("room")
         ret = cr.post(room)
-        rooms = db.get_rooms_as_dict()
-        if self.assertIn(room, rooms):
+        if self.assertTrue(db.room_exists(room)):
             dr = ep.DeleteRoom(Resource)
             ret = dr.post(room)
-            rooms = db.get_rooms_as_dict()
-            self.assertNotIn(room, rooms)
+            self.assertFalse(db.room_exists(room))
 
     def test_delete_user(self):
         """
@@ -150,9 +148,7 @@ class EndpointTestCase(TestCase):
         cr = ep.CreateUser(Resource)
         user = new_entity_name("user")
         ret = cr.post(user)
-        users = db.get_users_as_dict()
-        if self.assertIn(user, users):
+        if self.assertTrue(db.user_exists(user)):
             du = ep.DeleteUser(Resource)
             ret = du.post(user)
-            users = db.get_users_as_dict()
-            self.assertNotIn(user, users)
+            self.assertFalse(db.user_exists(user))
