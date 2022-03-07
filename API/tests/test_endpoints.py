@@ -90,11 +90,11 @@ class EndpointTestCase(TestCase):
         Post-condition 1: user has joined room.
         """
         jr = ep.JoinRoomCode(Resource)
-        ob_id = db_connect.create_object_id("620f1e5f16a2e3f23e0de44e")
+        ob_id = "620f1e5f16a2e3f23e0de44e"
         ret = jr.post(ob_id, "test_username")
         rooms = db_connect.fetch_all_as_dict(ROOMS, ID)
         found = False
-        if "test_username" in rooms[ob_id]["list_users"]:
+        if "test_username" in rooms[db_connect.create_object_id(ob_id)]["list_users"]:
             found = True
         self.assertTrue(found)
 

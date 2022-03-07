@@ -150,7 +150,7 @@ def join_room_code(roomcode, username):
         return NOT_FOUND
     else:
         try:
-            requested_room = rooms[roomcode]
+            requested_room = rooms[db.create_object_id(roomcode)]
             lst = rooms[roomcode][USERS_LIST]
             num = rooms[roomcode][NUM_USERS]
             lst.append(username)
