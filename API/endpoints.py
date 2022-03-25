@@ -51,6 +51,24 @@ class ListUsers(Resource):
             return users
 
 
+@api.route('/users/list/<roomname>')
+class ListUsersRoom(Resource):
+    """
+    This endpoint returns a list of all users from a specific room.
+    """
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    def get(self, roomname):
+        """
+        Returns a list of all users.
+        """
+        users = db.get_users_room(roomname)
+        if users is None:
+            raise (wz.NotFound(f"Chat room {roomname} not found."))
+        else:
+            return users
+
+
 @api.route('/rooms/list')
 class ListRooms(Resource):
     """

@@ -48,6 +48,14 @@ def get_users():
     return db.fetch_all(USERS, USER_NM)
 
 
+def get_users_room(roomname):
+    """
+    A function to return a list of all users from a specific room.
+    """
+    rooms = db.fetch_all_as_dict(ROOMS, ROOM_NM)
+    return rooms[roomname][USERS_LIST]
+
+
 def get_users_as_dict():
     """
     A function to return a dictionary of all users.
