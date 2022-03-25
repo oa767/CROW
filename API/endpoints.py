@@ -60,7 +60,7 @@ class RoomID(Resource):
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
     def get(self, roomname):
         """
-        Returns a list of all users.
+        Returns the room code for a specific room.
         """
         ID = db.get_room_code(roomname)
         if ID is None:
@@ -78,7 +78,7 @@ class ListUsersRoom(Resource):
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
     def get(self, roomname):
         """
-        Returns a list of all users.
+        Returns a list of all users for a specific room.
         """
         users = db.get_users_room(roomname)
         if users is None:
@@ -212,14 +212,14 @@ class JoinRandomRoom(Resource):
 @api.route('/rooms/join/<roomcode>/<username>')
 class JoinRoomCode(Resource):
     """
-    This class supports joining a random chat room.
+    This class supports joining a chat room using its room code.
     """
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
     @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key has been found')
     def post(self, roomcode, username):
         """
-        This method adds the user to a random chat room.
+        This method adds the user to a chat room using its room code.
         """
         ret = db.join_room_code(roomcode, username)
         if ret == db.NOT_FOUND:
