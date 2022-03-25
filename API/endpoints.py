@@ -62,7 +62,7 @@ class RoomID(Resource):
         """
         Returns a list of all users.
         """
-        ID = db.get_users_room(roomname)
+        ID = db.get_room_code(roomname)
         if ID is None:
             raise (wz.NotFound(f"Room {roomname} not found."))
         else:
