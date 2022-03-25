@@ -51,6 +51,24 @@ class ListUsers(Resource):
             return users
 
 
+@api.route('/rooms/<roomname>/id')
+class RoomID(Resource):
+    """
+    This endpoint returns the ID for a specific room.
+    """
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    def get(self, roomname):
+        """
+        Returns a list of all users.
+        """
+        ID = db.get_users_room(roomname)
+        if ID is None:
+            raise (wz.NotFound(f"Room {roomname} not found."))
+        else:
+            return ID
+
+
 @api.route('/users/list/<roomname>')
 class ListUsersRoom(Resource):
     """
