@@ -197,7 +197,6 @@ class JoinRandomRoom(Resource):
     """
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key has been found')
     def post(self, username):
         """
         This method adds the user to a random chat room.
@@ -216,7 +215,24 @@ class JoinRoomCode(Resource):
     """
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key has been found')
+    def post(self, roomcode, username):
+        """
+        This method adds the user to a chat room using its room code.
+        """
+        ret = db.join_room_code(roomcode, username)
+        if ret == db.NOT_FOUND:
+            raise (wz.NotFound("No chat room exists w/ this ID."))
+        else:
+            return f"{username} has joined room {roomcode}."
+
+
+@api.route('/rooms/join/<interests>')
+class JoinRoomInterests(Resource):
+    """
+    This class supports joining a chat room by matching with a user's specific interests.
+    """
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
     def post(self, roomcode, username):
         """
         This method adds the user to a chat room using its room code.
@@ -235,7 +251,7 @@ class UpdateRoom(Resource):
     """
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key has been found')
+    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'You are not an authorized user.')
     def put(self, roomname, newname):
         """
         This method updates a room already in the room database.
@@ -254,7 +270,7 @@ class UpdateUser(Resource):
     """
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key has been found')
+    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'You are not an authorized user.')
     def put(self, username, newname):
         """
         This method updates a user already in the user database.
