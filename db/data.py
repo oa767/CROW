@@ -191,11 +191,12 @@ def join_room_interests(interests, username):
         return NOT_FOUND
     else:
         for room in rooms:
-            for interest in interests:
-                print(f"{rooms=}")
-                print(f"{room=}")
-                if interest in rooms[room][COMMON_INTERESTS]:
-                    count += 1
+            try:
+                for interest in interests:
+                    if interest in rooms[room][COMMON_INTERESTS]:
+                        count += 1
+            except KeyError:
+                pass
             if count > max_count:
                 max_count = count
                 max_id = room
