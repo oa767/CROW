@@ -98,7 +98,7 @@ class EndpointTestCase(TestCase):
             found = True
         self.assertTrue(found)
 
-def test_join_room_interests(self):
+    def test_join_room_interests(self):
         """
         Checks to see if a user can successfully join a room using a specific set of interests.
         Post-condition 1: user has joined room.
