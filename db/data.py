@@ -192,8 +192,8 @@ def join_room_interests(interests, username):
     else:
         for room in rooms:
             for interest in interests:
-                print(f"{rooms=}"
-                print(f"{room=}"
+                print(f"{rooms=}")
+                print(f"{room=}")
                 if interest in rooms[room][COMMON_INTERESTS]:
                     count += 1
             if count > max_count:
