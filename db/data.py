@@ -16,6 +16,7 @@ USERS = "users"
 USER_NM = "user_name"
 ROOM_NM = "room_name"
 NUM_USERS = "num_users"
+COMMON_INTERESTS = "common_interests"
 USERS_LIST = "list_users"
 ID = "_id"
 
@@ -141,7 +142,7 @@ def delete_user(username):
 
 def join_random_room(username):
     """
-    Adds a user to a chat room.
+    Adds a user to a random chat room.
     """
     rooms = get_rooms_as_dict()
     if rooms is None:
@@ -159,7 +160,7 @@ def join_random_room(username):
 
 def join_room_code(roomcode, username):
     """
-    Adds a user to a chat room.
+    Adds a user to a chat room using a specific room code.
     """
     rooms = db.fetch_all_as_dict(ROOMS, ID)
     if rooms is None:
@@ -175,6 +176,36 @@ def join_room_code(roomcode, username):
             db.update_doc(ROOMS, {ID : ob_id}, { "$set" : {USERS_LIST: lst, NUM_USERS: num}})
         except KeyError:
             return NOT_FOUND
+
+
+def join_room_interests(interests, username):
+    """
+    Adds a user to a chat room based on their specific interests.
+    """
+    #This algorithm is really bad but it works. Requires modification..."
+    rooms = db.fetch_all_as_dict(ROOMS, ID)
+    max_count = 0
+    max_id = 0
+    count = 0
+    if rooms is None:
+        return NOT_FOUND
+    else:
+        for room in rooms:
+            for interest in interests:
+                if interest in room[COMMON_INTERESTS]:
+                    count += 1
+            if count > max_count:
+                max_count = count
+                max_id = room
+            count = 0
+        if max_id == 0:
+            return NOT_FOUND
+        else:
+            lst = rooms[room][USERS_LIST]
+            num = rooms[room][NUM_USERS]
+            lst.append(username)
+            num += 1
+            db.update_doc(ROOMS, {ID : room}, { "$set" : {USERS_LIST: lst, NUM_USERS: num}})
 
 
 def update_room(roomname, newname):
