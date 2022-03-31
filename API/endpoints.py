@@ -233,11 +233,11 @@ class JoinRoomInterests(Resource):
     """
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    def post(self, interests):
+    def post(self, interests, username):
         """
         This method adds the user to a chat room using its room code.
         """
-        ret = db.join_room_interests(interests)
+        ret = db.join_room_interests(interests, username)
         if ret == db.NOT_FOUND:
             raise (wz.NotFound("No suitable chat room found. Please try joining a random room."))
         else:
