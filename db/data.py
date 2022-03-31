@@ -210,7 +210,7 @@ def join_room_interests(interests, username):
             lst.append(username)
             num += 1
             db.update_doc(ROOMS, {ID : room}, { "$set" : {USERS_LIST: lst, NUM_USERS: num}})
-            return room[ROOM_NM]
+            return rooms[room][ROOM_NM]
 
 
 def update_room(roomname, newname):
