@@ -44,10 +44,10 @@ class EndpointTestCase(TestCase):
         Checks to see if we can successfully create a new room.
         Post-condition 1: room is in DB.
         """
-		new_room = new_entity_name("room")
-		db.add_room(new_room)
-		rooms = db.get_rooms_as_dict()
-		self.assertIn(new_room, rooms)
+        new_room = new_entity_name("room")
+        db.add_room(new_room)
+        rooms = db.get_rooms_as_dict()
+        self.assertIn(new_room, rooms)
 
     def test_create_user(self):
         """
@@ -55,7 +55,7 @@ class EndpointTestCase(TestCase):
         Post-condition 1: user is in DB.
         """
         new_user = new_entity_name("user")
-		db.add_user(new_user)
+        db.add_user(new_user)
         users = db.get_users_as_dict()
         self.assertIn(new_user, users)
 
@@ -64,7 +64,7 @@ class EndpointTestCase(TestCase):
         Checks to see if a user can successfully join a room.
         Post-condition 1: user has joined room.
         """
-		db.join_random_room("test_username")
+        db.join_random_room("test_username")
         rooms = db.get_rooms_as_dict()
         found = False
         for room in rooms:
@@ -77,8 +77,8 @@ class EndpointTestCase(TestCase):
         Checks to see if a user can successfully join a room using a specific roomcode.
         Post-condition 1: user has joined room.
         """
-		ob_id = "620f1e5f16a2e3f23e0de44e"
-		db.join_room_code(ob_id, "test_username")
+        ob_id = "620f1e5f16a2e3f23e0de44e"
+        db.join_room_code(ob_id, "test_username")
         rooms = db_connect.fetch_all_as_dict(ROOMS, ID)
         found = False
         if "test_username" in rooms[db_connect.create_object_id(ob_id)]["list_users"]:
@@ -91,7 +91,7 @@ class EndpointTestCase(TestCase):
         Post-condition 1: user has joined room.
         """
         interests = ["Reading"]
-		join_room_interests(interests, "test_username")
+        db.join_room_interests(interests, "test_username")
         rooms = db_connect.fetch_all_as_dict(ROOMS, ROOM_NM)
         found = False
         if "test_username" in rooms["Software Engineering"]["list_users"]:
@@ -104,10 +104,10 @@ class EndpointTestCase(TestCase):
         Post-condition 1: room has been updated.
         """
         room = new_entity_name("room")
-		db.add_room(room)
+        db.add_room(room)
         rooms = db.get_rooms_as_dict()
         if self.assertIn(room, rooms):
-			db.update_room(room, "updatedname")
+            db.update_room(room, "updatedname")
             rooms = db.get_rooms_as_dict()
             found = False
             for room in rooms:
@@ -138,10 +138,10 @@ class EndpointTestCase(TestCase):
         Post-condition 1: room is not in DB.
         """
         room = new_entity_name("room")
-		db.add_room(room)
+        db.add_room(room)
         if self.assertTrue(db.room_exists(room)):
-			db.delete_room(room)
-			self.assertFalse(db.room_exists(room))
+            db.delete_room(room)
+            self.assertFalse(db.room_exists(room))
 
     def test_delete_user(self):
         """
@@ -151,5 +151,5 @@ class EndpointTestCase(TestCase):
         user = new_entity_name("user")
         db.add_user(user)
         if self.assertTrue(db.user_exists(user)):
-			db.delete_user(user)
-			self.assertFalse(db.user_exists(user))
+            db.delete_user(user)
+            self.assertFalse(db.user_exists(user))
