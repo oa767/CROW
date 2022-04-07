@@ -44,7 +44,7 @@ class EndpointTestCase(TestCase):
         Checks to see if we can successfully create a new room.
         Post-condition 1: room is in DB.
         """
-        new_room = new_entity_name("room")
+		new_room = new_entity_name("room")
 		db.add_room(new_room)
 		rooms = db.get_rooms_as_dict()
 		self.assertIn(new_room, rooms)
