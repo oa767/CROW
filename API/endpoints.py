@@ -6,7 +6,7 @@ The endpoint called `endpoints` will return all available endpoints.
 from http import HTTPStatus
 from flask import Flask
 from flask_cors import CORS
-from flask_restx import Resource, Api, fields
+from flask_restx import Resource, Api, fields, reqparse
 import werkzeug.exceptions as wz
 import db.data as db
 
@@ -190,7 +190,7 @@ class DeleteUser(Resource):
             return f"{username} deleted."
 
 
-@api.route('/rooms/join/<username>')
+@api.route('/rooms/join/random/<username>')
 class JoinRandomRoom(Resource):
     """
     This class supports joining a random chat room.
@@ -226,17 +226,24 @@ class JoinRoomCode(Resource):
             return f"{username} has joined room {roomcode}."
 
 
-@api.route('/rooms/join/<interests>')
+interests_parser = reqparse.RequestParser()
+interests_parser.add_argument('interests', action = 'split')
+
+
+@api.route('/rooms/join/<username>')
 class JoinRoomInterests(Resource):
     """
     This class supports joining a chat room by matching with a user's specific interests.
     """
+    @api.doc(parser = interests_parser)
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    def post(self, interests, username):
+    def post(self, username):
         """
         This method adds the user to a chat room using its room code.
         """
+        args = interests_parser.parse_args()
+        interests = args["interests"]
         ret = db.join_room_interests(interests, username)
         if ret == db.NOT_FOUND:
             raise (wz.NotFound("No suitable chat room found. Please try joining a random room."))

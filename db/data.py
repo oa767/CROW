@@ -205,12 +205,12 @@ def join_room_interests(interests, username):
         if max_id == 0:
             return NOT_FOUND
         else:
-            lst = rooms[room][USERS_LIST]
-            num = rooms[room][NUM_USERS]
+            lst = rooms[max_id][USERS_LIST]
+            num = rooms[max_id][NUM_USERS]
             lst.append(username)
             num += 1
-            db.update_doc(ROOMS, {ID : room}, { "$set" : {USERS_LIST: lst, NUM_USERS: num}})
-            return rooms[room][ROOM_NM]
+            db.update_doc(ROOMS, {ID : max_id}, { "$set" : {USERS_LIST: lst, NUM_USERS: num}})
+            return rooms[max_id][ROOM_NM]
 
 
 def update_room(roomname, newname):
