@@ -205,7 +205,7 @@ class JoinRandomRoom(Resource):
         if ret == db.NOT_FOUND:
             raise (wz.NotFound("No chat rooms available."))
         else:
-            return f"{username} has joined a room."
+            return f"{username} has joined room {ret}."
 
 
 @api.route('/rooms/join/<roomcode>/<username>')
