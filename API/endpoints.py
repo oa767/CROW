@@ -230,7 +230,7 @@ interests_parser = reqparse.RequestParser()
 interests_parser.add_argument('interests', action = 'split')
 
 
-@api.route('/rooms/join/<username>')
+@api.route('/rooms/join/interests/<username>')
 class JoinRoomInterests(Resource):
     """
     This class supports joining a chat room by matching with a user's specific interests.

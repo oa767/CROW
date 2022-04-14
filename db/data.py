@@ -140,6 +140,21 @@ def delete_user(username):
         return OK
 
 
+def remove_user_room(username, roomname):
+    rooms = get_rooms_as_dict()
+    requested_room = rooms[roomname]
+    lst = requested_room[USERS_LIST]
+    num = requested_room[NUM_USERS]
+    ob_id = requested_room[ID]
+    try:
+        lst.remove(username)
+        num -= 1
+    except:
+        return NOT_FOUND
+    db.update_doc(ROOMS, {ID : ob_id}, { "$set" : {USERS_LIST: lst, NUM_USERS: num}})
+    return OK
+
+
 def join_random_room(username):
     """
     Adds a user to a random chat room.
