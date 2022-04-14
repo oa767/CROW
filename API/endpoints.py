@@ -9,6 +9,7 @@ from flask_cors import CORS
 from flask_restx import Resource, Api, fields, reqparse
 import werkzeug.exceptions as wz
 import db.data as db
+import random
 
 app = Flask(__name__)
 CORS(app)
@@ -206,6 +207,30 @@ class JoinRandomRoom(Resource):
             raise (wz.NotFound("No chat rooms available."))
         else:
             return f"{username} has joined room {ret}."
+
+
+@api.route('/rooms/join/preset/<username>')
+class JoinPresetRoom(Resource):
+    """
+    This class supports joining a random chat room with a preset username.
+    """
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    def post(self, username):
+        """
+        This method adds a user with a preset username to a random chat room.
+        """
+        rooms = db.get_rooms_as_dict()
+        random_room = random.choice(list(rooms))
+        if username in db.get_users_room(random_room):
+            db.remove_user_room(username, random_room)
+        ob_id = rooms[random_room]["_id"]
+        roomname = rooms[random_room]["room_name"]
+        ret = db.join_room_code(roomcode, username)
+        if ret == db.NOT_FOUND:
+            raise (wz.NotFound("Something went wrong."))
+        else:
+            return f"{username} has joined room {roomname}."
 
 
 @api.route('/rooms/join/<roomcode>/<username>')
