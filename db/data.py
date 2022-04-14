@@ -155,6 +155,25 @@ def remove_user_room(username, roomname):
     return OK
 
 
+def join_preset_room(username):
+    rooms = get_rooms_as_dict()
+    if rooms is None:
+        return NOT_FOUND
+    else:
+        found_room = False
+        while(!found_room):
+            random_room = random.choice(list(rooms))
+            ob_id = rooms[random_room]["_id"]
+            roomname = rooms[random_room]["room_name"]
+            if username not in get_users_room(roomname):
+                found_room = True
+    if found_room:
+        join_room_code(ob_id, username)
+        return roomname
+    else:
+        return join_random_room(username)
+
+
 def join_random_room(username):
     """
     Adds a user to a random chat room.

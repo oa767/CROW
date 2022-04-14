@@ -71,7 +71,7 @@ class EndpointTestCase(TestCase):
             if "test_username" in rooms[room]["list_users"]:
                 found = True
         self.assertTrue(found)
-        
+
     def test_join_room_code(self):
         """
         Checks to see if a user can successfully join a room using a specific roomcode.

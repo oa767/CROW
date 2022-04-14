@@ -220,17 +220,11 @@ class JoinPresetRoom(Resource):
         """
         This method adds a user with a preset username to a random chat room.
         """
-        rooms = db.get_rooms_as_dict()
-        random_room = random.choice(list(rooms))
-        if username in db.get_users_room(random_room):
-            db.remove_user_room(username, random_room)
-        ob_id = rooms[random_room]["_id"]
-        roomname = rooms[random_room]["room_name"]
-        ret = db.join_room_code(roomcode, username)
+        ret = db.join_preset_room(username)
         if ret == db.NOT_FOUND:
             raise (wz.NotFound("Something went wrong."))
         else:
-            return f"{username} has joined room {roomname}."
+            return f"{username} has joined room {ret}."
 
 
 @api.route('/rooms/join/<roomcode>/<username>')
