@@ -161,7 +161,7 @@ def join_preset_room(username):
         return NOT_FOUND
     else:
         found_room = False
-        while(!found_room):
+        while(found_room == False):
             random_room = random.choice(list(rooms))
             ob_id = rooms[random_room]["_id"]
             roomname = rooms[random_room]["room_name"]

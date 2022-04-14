@@ -85,6 +85,19 @@ class EndpointTestCase(TestCase):
             found = True
         self.assertTrue(found)
 
+    def test_join_preset_room(self):
+        """
+        Checks to see if a user can successfully join a room.
+        Post-condition 1: user has joined room.
+        """
+        db.join_preset_room("Raven")
+        rooms = db.get_rooms_as_dict()
+        found = False
+        for room in rooms:
+            if "Raven" in rooms[room]["list_users"]:
+                found = True
+        self.assertTrue(found)
+
     def test_join_room_interests(self):
         """
         Checks to see if a user can successfully join a room using a specific set of interests.
