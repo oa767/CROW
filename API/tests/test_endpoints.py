@@ -59,58 +59,6 @@ class EndpointTestCase(TestCase):
         users = db.get_users_as_dict()
         self.assertIn(new_user, users)
 
-    def test_join_random_room(self):
-        """
-        Checks to see if a user can successfully join a room.
-        Post-condition 1: user has joined room.
-        """
-        db.join_random_room("test_username")
-        rooms = db.get_rooms_as_dict()
-        found = False
-        for room in rooms:
-            if "test_username" in rooms[room]["list_users"]:
-                found = True
-        self.assertTrue(found)
-
-    def test_join_room_code(self):
-        """
-        Checks to see if a user can successfully join a room using a specific roomcode.
-        Post-condition 1: user has joined room.
-        """
-        ob_id = "620f1e5f16a2e3f23e0de44e"
-        db.join_room_code(ob_id, "test_username")
-        rooms = db_connect.fetch_all_as_dict(ROOMS, ID)
-        found = False
-        if "test_username" in rooms[db_connect.create_object_id(ob_id)]["list_users"]:
-            found = True
-        self.assertTrue(found)
-
-    def test_join_preset_room(self):
-        """
-        Checks to see if a user can successfully join a room.
-        Post-condition 1: user has joined room.
-        """
-        db.join_preset_room("Raven")
-        rooms = db.get_rooms_as_dict()
-        found = False
-        for room in rooms:
-            if "Raven" in rooms[room]["list_users"]:
-                found = True
-        self.assertTrue(found)
-
-    def test_join_room_interests(self):
-        """
-        Checks to see if a user can successfully join a room using a specific set of interests.
-        Post-condition 1: user has joined room.
-        """
-        interests = ["Reading"]
-        db.join_room_interests(interests, "test_username")
-        rooms = db_connect.fetch_all_as_dict(ROOMS, ROOM_NM)
-        found = False
-        if "test_username" in rooms["Software Engineering"]["list_users"]:
-            found = True
-        self.assertTrue(found)
-
     def test_update_room(self):
         """
         Checks to see if a room can be updated.
@@ -166,3 +114,54 @@ class EndpointTestCase(TestCase):
         if self.assertTrue(db.user_exists(user)):
             db.delete_user(user)
             self.assertFalse(db.user_exists(user))
+    def test_join_random_room(self):
+        """
+        Checks to see if a user can successfully join a room.
+        Post-condition 1: user has joined room.
+        """
+        db.join_random_room("test_username")
+        rooms = db.get_rooms_as_dict()
+        found = False
+        for room in rooms:
+            if "test_username" in rooms[room]["list_users"]:
+                found = True
+        self.assertTrue(found)
+
+    def test_join_room_code(self):
+        """
+        Checks to see if a user can successfully join a room using a specific roomcode.
+        Post-condition 1: user has joined room.
+        """
+        ob_id = "620f1e5f16a2e3f23e0de44e"
+        db.join_room_code(ob_id, "test_username")
+        rooms = db_connect.fetch_all_as_dict(ROOMS, ID)
+        found = False
+        if "test_username" in rooms[db_connect.create_object_id(ob_id)]["list_users"]:
+            found = True
+        self.assertTrue(found)
+
+    def test_join_preset_room(self):
+        """
+        Checks to see if a user can successfully join a room.
+        Post-condition 1: user has joined room.
+        """
+        db.join_preset_room("Raven")
+        rooms = db.get_rooms_as_dict()
+        found = False
+        for room in rooms:
+            if "Raven" in rooms[room]["list_users"]:
+                found = True
+        self.assertTrue(found)
+
+    def test_join_room_interests(self):
+        """
+        Checks to see if a user can successfully join a room using a specific set of interests.
+        Post-condition 1: user has joined room.
+        """
+        interests = ["Reading"]
+        db.join_room_interests(interests, "test_username")
+        rooms = db_connect.fetch_all_as_dict(ROOMS, ROOM_NM)
+        found = False
+        if "test_username" in rooms["Software Engineering"]["list_users"]:
+            found = True
+        self.assertTrue(found)

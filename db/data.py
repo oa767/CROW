@@ -161,10 +161,10 @@ def join_preset_room(username):
         return NOT_FOUND
     else:
         found_room = False
-        while(found_room == False):
+        while(not found_room):
             random_room = random.choice(list(rooms))
-            ob_id = rooms[random_room]["_id"]
-            roomname = rooms[random_room]["room_name"]
+            ob_id = rooms[random_room][ID]
+            roomname = rooms[random_room][ROOM_NM]
             if username not in get_users_room(roomname):
                 found_room = True
     if found_room:
@@ -203,8 +203,8 @@ def join_room_code(roomcode, username):
         try: 
             ob_id = db.create_object_id(roomcode)
             requested_room = rooms[ob_id]
-            lst = rooms[ob_id][USERS_LIST]
-            num = rooms[ob_id][NUM_USERS]
+            lst = requested_room[USERS_LIST]
+            num = requested_room[NUM_USERS]
             lst.append(username)
             num += 1
             db.update_doc(ROOMS, {ID : ob_id}, { "$set" : {USERS_LIST: lst, NUM_USERS: num}})
@@ -217,7 +217,7 @@ def join_room_interests(interests, username):
     """
     Adds a user to a chat room based on their specific interests.
     """
-    #This algorithm is really bad but it works. Requires modification..."
+    #This algorithm is O(n^2) runtime. Contains nested for loops."
     rooms = db.fetch_all_as_dict(ROOMS, ID)
     max_count = 0
     max_id = 0

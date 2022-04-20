@@ -122,7 +122,7 @@ class CreateRoom(Resource):
         if ret == db.NOT_FOUND:
             raise (wz.NotFound("Chat room db not found."))
         elif ret == db.DUPLICATE:
-            raise (wz.NotAcceptable("Chat room name already exists."))
+            raise (wz.NotAcceptable(f"Chat room {roomname} already exists."))
         else:
             return f"{roomname} added."
 
@@ -143,7 +143,7 @@ class CreateUser(Resource):
         if ret == db.NOT_FOUND:
             raise (wz.NotFound("User db not found."))
         elif ret == db.DUPLICATE:
-            raise (wz.NotAcceptable("The username provided already exists."))
+            raise (wz.NotAcceptable(f"Username {username} already exists."))
         return f"{username} added."
 
 
@@ -240,7 +240,7 @@ class JoinRoomCode(Resource):
         """
         ret = db.join_room_code(roomcode, username)
         if ret == db.NOT_FOUND:
-            raise (wz.NotFound("No chat room exists w/ this ID."))
+            raise (wz.NotFound(f"No chat room exists w/ ID {roomcode}."))
         else:
             return f"{username} has joined room {roomcode}."
 
