@@ -114,6 +114,19 @@ class EndpointTestCase(TestCase):
         if self.assertTrue(db.user_exists(user)):
             db.delete_user(user)
             self.assertFalse(db.user_exists(user))
+
+    def test_remove_user_room(self):
+        """
+        Checks to see if we can successfully remove a user from a chat room.
+        Post-condition 1: user is not in room.
+        """
+        user = new_entity_name("user")
+        joined_room = db.join_random_room(user)
+        room_list = db.get_users_room(joined_room)
+        if self.assertIn(user, room_list):
+            db.remove_user_room(user, joined_room)
+            self.assertNotIn(user, room_list)
+
     def test_join_random_room(self):
         """
         Checks to see if a user can successfully join a room.
