@@ -38,6 +38,7 @@ Deletes after use (20 minutes after last message).
 ## Requirements:
 
 - Encrypted Messaging
+- Users are connected using cookies. They are automatically removed from all rooms and all their chat history is deleted.
 - Users are connected to a random public chat room as an anonymous user.
 - Users can connect to different chat rooms using the code provided by each room.
 - Rooms have limited user slots (ideally 10 slots).
