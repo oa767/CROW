@@ -267,7 +267,7 @@ class JoinRoomInterests(Resource):
         if ret == db.NOT_FOUND:
             raise (wz.NotFound("No suitable chat room found. Please try joining a random room."))
         else:
-            return f"{username} has joined room {ret}.", f"{ret}"
+            return {f"{username} has joined room {ret}.": f"{ret}"}
 
 
 @api.route('/rooms/update/<roomname>/<newname>')
