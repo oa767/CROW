@@ -36,8 +36,9 @@ class EndpointTestCase(TestCase):
         """
         Post-condition 1: return is a list.
         """
-        lst = db.get_rooms()
-        self.assertIsInstance(lst, list)
+        endpoint = ep.ListRooms(Resource)
+        ret = endpoint.get()
+        self.assertIsInstance(ret, list)
 
     def test_create_room(self):
         """
