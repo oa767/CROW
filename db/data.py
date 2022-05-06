@@ -97,7 +97,7 @@ def add_room(roomname):
     rooms = get_rooms()
     if rooms is None:
         return NOT_FOUND
-    elif roomname in rooms:
+    elif room_exists(roomname):
         return DUPLICATE
     else:
         db.insert_doc(ROOMS, {ROOM_NM: roomname, NUM_USERS: 0, USERS_LIST: []})
@@ -111,7 +111,7 @@ def add_user(username):
     users = get_users()
     if users is None:
         return NOT_FOUND
-    elif username in users:
+    elif user_exists(username):
         return DUPLICATE
     else:
         db.insert_doc(USERS, {USER_NM: username})
