@@ -270,6 +270,27 @@ class JoinRoomInterests(Resource):
             return {f"{username} has joined room {ret}.": f"{ret}"}
 
 
+@api.route('/users/remove/<username>/<roomname>')
+class RemoveUserFromRoom(Resource):
+    """
+    This class supports removing a user from a room.
+    """
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'Only the user themselves or an admin can perform this operation.')
+    def put(self, username, roomname):
+        """
+        This method removes a user from a room.
+        """
+        ret = db.remove_user_room(username, roomname)
+        if ret == db.NOT_FOUND:
+            raise (wz.NotFound("User {username} cannot be found."))
+        elif ret == db.NOT_ACCEPTABLE:
+            raise (wz.NotFound("Only {username} or an admin can perform this operation."))
+        else:
+            return f"{username} has been removed from room {roomname}."
+
+
 @api.route('/rooms/update/<roomname>/<newname>')
 class UpdateRoom(Resource):
     """

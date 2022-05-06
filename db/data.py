@@ -4,6 +4,7 @@ At first, it will just contain stubs that return fake data.
 Gradually, we will fill in actual calls to our datastore.
 """
 
+from http.client import NOT_ACCEPTABLE
 import os
 import random
 import db.db_connect as db
@@ -23,6 +24,7 @@ ID = "_id"
 OK = 0
 NOT_FOUND = 1
 DUPLICATE = 2
+NOT_ACCEPTABLE = 3
 
 client = db.get_client()
 print(client)
