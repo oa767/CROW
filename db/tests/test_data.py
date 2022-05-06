@@ -72,7 +72,7 @@ class DBTestCase(TestCase):
         users = db.get_users_room()
         self.assertIsInstance(users, list)
 
-    def test_create_room(self):
+    def test_add_room(self):
         """
         Checks to see if we can successfully create a new room.
         Post-condition 1: room is in DB.
@@ -82,7 +82,7 @@ class DBTestCase(TestCase):
         rooms = db.get_rooms_as_dict()
         self.assertIn(new_room, rooms)
 
-    def test_create_user(self):
+    def test_add_user(self):
         """
         Checks to see if we can successfully create a new user.
         Post-condition 1: user is in DB.
