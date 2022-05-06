@@ -32,21 +32,62 @@ class DBTestCase(TestCase):
 
     def test_get_users(self):
         """
-        Can we fetch user db?
+        Post-condition 1: return is a list.
         """
         users = db.get_users()
         self.assertIsInstance(users, list)
 
     def test_get_rooms(self):
         """
-        Can we fetch user db?
-        """
-        rooms = db.get_rooms()
-        self.assertIsInstance(rooms, list)
-
-    def test_list_rooms(self):
-        """
         Post-condition 1: return is a list.
         """
         lst = db.get_rooms()
         self.assertIsInstance(lst, list)
+
+    def test_get_rooms_as_dict(self):
+        """
+        Post-condition 1: return is a dictionary.
+        """
+        rooms = db.get_rooms_as_dict()
+        self.assertIsInstance(rooms, dict)
+
+    def test_get_users_as_dict(self):
+        """
+        Post-condition 1: return is a dictionary.
+        """
+        users = db.get_users_as_dict()
+        self.assertIsInstance(users, dict)
+
+    def test_get_room_code(self):
+        """
+        Post-condition 1: return is a string.
+        """
+        ID = db.get_room_code()
+        self.assertIsInstance(ID, str)
+
+    def test_get_users_room(self):
+        """
+        Post-condition 1: return is a list.
+        """
+        users = db.get_users_room()
+        self.assertIsInstance(users, list)
+
+    def test_create_room(self):
+        """
+        Checks to see if we can successfully create a new room.
+        Post-condition 1: room is in DB.
+        """
+        new_room = new_entity_name("room")
+        db.add_room(new_room)
+        rooms = db.get_rooms_as_dict()
+        self.assertIn(new_room, rooms)
+
+    def test_create_user(self):
+        """
+        Checks to see if we can successfully create a new user.
+        Post-condition 1: user is in DB.
+        """
+        new_user = new_entity_name("user")
+        db.add_user(new_user)
+        users = db.get_users_as_dict()
+        self.assertIn(new_user, users)

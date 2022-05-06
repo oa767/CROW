@@ -40,26 +40,6 @@ class EndpointTestCase(TestCase):
         ret = endpoint.get()
         self.assertIsInstance(ret, list)
 
-    def test_create_room(self):
-        """
-        Checks to see if we can successfully create a new room.
-        Post-condition 1: room is in DB.
-        """
-        new_room = new_entity_name("room")
-        db.add_room(new_room)
-        rooms = db.get_rooms_as_dict()
-        self.assertIn(new_room, rooms)
-
-    def test_create_user(self):
-        """
-        Checks to see if we can successfully create a new user.
-        Post-condition 1: user is in DB.
-        """
-        new_user = new_entity_name("user")
-        db.add_user(new_user)
-        users = db.get_users_as_dict()
-        self.assertIn(new_user, users)
-
     def test_update_room(self):
         """
         Checks to see if a room can be updated.
