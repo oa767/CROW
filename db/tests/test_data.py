@@ -62,14 +62,18 @@ class DBTestCase(TestCase):
         """
         Post-condition 1: return is a string.
         """
-        ID = db.get_room_code()
+        rooms = db.get_rooms_as_dict()
+        random_room = random.choice(list(rooms))
+        ID = db.get_room_code(random_room)
         self.assertIsInstance(ID, str)
 
     def test_get_users_room(self):
         """
         Post-condition 1: return is a list.
         """
-        users = db.get_users_room()
+        rooms = db.get_rooms_as_dict()
+        random_room = random.choice(list(rooms))
+        users = db.get_users_room(random_room)
         self.assertIsInstance(users, list)
 
     def test_add_room(self):
