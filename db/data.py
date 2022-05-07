@@ -218,19 +218,17 @@ def join_room_code(roomcode, username):
         return NOT_FOUND
     else:
         ob_id = db.create_object_id(roomcode) 
-	
-        try:
-            rooms[ob_id]
-        except KeyError:
-            return NOT_FOUND
 
-        requested_room = rooms[ob_id]
-        lst = requested_room[USERS_LIST]
-        num = requested_room[NUM_USERS]
-        lst.append(username)
-        num += 1
-        db.update_doc(ROOMS, {ID : ob_id}, { "$set" : {USERS_LIST: lst, NUM_USERS: num}})
-        return OK
+        if not room_exists(rooms[ob_id][ROOM_NM]):
+            return NOT_FOUND
+        else:	
+            requested_room = rooms[ob_id]
+            lst = requested_room[USERS_LIST]
+            num = requested_room[NUM_USERS]
+            lst.append(username)
+            num += 1
+            db.update_doc(ROOMS, {ID : ob_id}, { "$set" : {USERS_LIST: lst, NUM_USERS: num}})
+            return OK
 
 def join_room_interests(interests, username):
     """
