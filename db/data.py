@@ -220,7 +220,7 @@ def join_room_code(roomcode, username):
         ob_id = db.create_object_id(roomcode) 
 
         if not room_exists(rooms[ob_id][ROOM_NM]):
-            return NOT_FOUND
+            return NOT_ACCEPTABLE
         else:	
             requested_room = rooms[ob_id]
             lst = requested_room[USERS_LIST]
