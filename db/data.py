@@ -110,10 +110,11 @@ def add_user(username):
     """
     This function adds a new user to the user db.
     """
+    defaultUsernames = ["Crow", "Owl", "Raven", "Eagle", "Sparrow", "Penguin", "Flamingo", "Crane", "Hummingbird", "Dove"]
     users = get_users()
     if users is None:
         return NOT_FOUND
-    elif user_exists(username):
+    elif user_exists(username) and username not in defaultUsernames:
         return DUPLICATE
     else:
         db.insert_doc(USERS, {USER_NM: username})
