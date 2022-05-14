@@ -12,7 +12,7 @@ FORCE:
 tests: unit
 
 unit: FORCE
-	$(TESTFINDER)
+	$(TESTFINDER) --with-coverage
 
 lint: FORCE
 	$(LINTER) *.py
